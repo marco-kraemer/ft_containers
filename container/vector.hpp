@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 11:21:21 by user42            #+#    #+#             */
-/*   Updated: 2021/09/08 11:40:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/09 09:44:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,35 @@
 
 # include <iostream>
 # include <vector>
+# include <memory>
+# include <algorithm>
+# include <cstddef>
+# include <tgmath.h>
+
 namespace ft
 {
-	template < class T, class Alloc = allocator<T> >
+	template < class T, class Alloc = std::allocator<T> >
 	class vector
-	{
-		private:
-			typedef T						value_type;
-			typedef Alloc						allocator_type;
-			typedef typename allocator_type::reference		reference;
-			typedef typename allocator_type::const_reference	const_reference;
-			typedef typename allocator_type::pointer		pointer;
-			typedef typename allocator_type::const_pointer		const_pointer;
+	{	
 		public:
+			typedef T	value_type;
+			typedef Alloc	allocator_type;
+			typedef T*	pointer;
+			typedef T&	reference;
 
-	}
+			explicit vector (const allocator_type& alloc = allocator_type()) :
+				_first(nullptr),
+				_last(nullptr),
+				_end_capacity(nullptr),
+				_alloc(alloc) 
+			{}
+
+		private:
+			pointer		_first;
+			pointer		_last;
+			pointer		_end_capacity;
+			allocator_type	_alloc;
+	};
 }
 
 #endif

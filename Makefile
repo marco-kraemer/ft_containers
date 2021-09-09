@@ -6,11 +6,11 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/08 08:52:15 by user42            #+#    #+#              #
-#    Updated: 2021/09/08 08:52:16 by user42           ###   ########.fr        #
+#    Updated: 2021/09/09 09:12:50 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = containers
+NAME = a.out
 
 SRC_PATH = ./src
 
@@ -43,4 +43,4 @@ re: fclean all
 git:
 	git add .
 	git commit -m "update"
-	git push origin main
+	git push

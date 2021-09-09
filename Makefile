@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/09/08 08:52:15 by user42            #+#    #+#              #
-#    Updated: 2021/09/09 09:12:50 by user42           ###   ########.fr        #
+#    Created: 2021/09/09 09:50:13 by maraurel          #+#    #+#              #
+#    Updated: 2021/09/09 11:23:03 by maraurel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,3 +44,9 @@ git:
 	git add .
 	git commit -m "update"
 	git push
+
+run: re
+	@./a.out
+
+memory: re
+	@valgrind ./a.out

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/08 08:52:25 by user42            #+#    #+#             */
-/*   Updated: 2021/09/09 09:46:56 by user42           ###   ########.fr       */
+/*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
+/*   Updated: 2021/09/09 11:27:28 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@
 
 int main(void)
 {
-	ft::vector<int> ft_vec1;
+	ft::vector<int>	ft_vec1;
+	ft_vec1.push_back(5);
+//	std::cout << ft_vec1[0] << std::endl;
 }

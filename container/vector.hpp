@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/09 11:48:19 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/09 12:06:30 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,18 @@ namespace ft
 			*/
 			void reserve (size_type n)
 			{
+				pointer	old_first = _first;
+				pointer	old_last = _last;
 
+
+				_first = _alloc.allocate(n);
+				_last = _first;
+				while (old_first != old_last)
+				{
+					_alloc.construct(_last, *old_first);
+					_last++;
+					old_first++;
+				}
 			}
 
 			// Element Access
@@ -148,9 +159,7 @@ namespace ft
 			** Returns a reference to the element at position n in the vector container.
 			*/
 			reference operator[] (size_type n)
-			{
-				return (*(_first + n));
-			}
+			{return (*(_first + n));}
 
 			// Modifiers
 
@@ -165,9 +174,9 @@ namespace ft
 					int	new_capacity;
 	
 					if (size() == 0)
-						new_capacity = 1
+						new_capacity = 1;
 					else
-						new_capacity = (this->size() * 2)
+						new_capacity = (this->size() * 2);
 					this->reserve(new_capacity);
 				}
 				_alloc.construct(_last, val);

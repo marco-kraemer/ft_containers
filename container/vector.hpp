@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/10 09:21:47 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/10 11:33:10 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <cstddef>
 # include <tgmath.h>
 
+# include "extras/random_access_iterator.hpp"
+
 namespace ft
 {
 	template < class T, class Alloc = std::allocator<T> >
@@ -30,7 +32,8 @@ namespace ft
 			typedef Alloc					allocator_type;
 			typedef T*					pointer;
 			typedef T&					reference;
-			typedef	typename allocator_type::size_type	size_type;
+			typedef typename allocator_type::size_type	size_type;
+			typedef random_access_iterator<T>		iterator;
 
 			// Constructors
 

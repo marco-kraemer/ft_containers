@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/09 12:06:30 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/10 09:21:47 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,24 +100,40 @@ namespace ft
 			*/
 			vector (const vector& x)
 			{
-				pointer	tmp;
-				int	length;
-		
-				tmp = x._first;
-				length = 0;
-				while (x._first != x._last)
+				
+			}
+
+			// Destructors
+			
+			/*
+			** This destroys all container elements,
+			** and deallocates all the storage capacity allocated by the vector using its allocator.
+			*/
+			~vector()
+			{
+				_alloc.deallocate(_first, this->capacity());
+			}
+
+			// Operator =
+
+			/*
+			** Assigns new contents to the container,
+			** replacing its current contents, and modifying its size accordingly.
+			*/
+			vector& operator= (const vector& x)
+			{
+				size_type	storage = this->size();
+				pointer		old_first = x._first;
+
+				this->_first = this->_alloc.allocate(storage);
+				this->_last = this->_first;
+				while (old_first != x._last)
 				{
-					x._first++;
-					length++;
+					this->_last = x._first;
+					this->_last++;
+					old_first++;
 				}
-				x._first = tmp;
-				this->_first = this->_alloc.allocate(length);
-				while (x._first != x._last)
-				{
-					this->_first = x._first;
-					this->_first++;
-					x._first++;
-				}
+				return (*this);
 			}
 
 			// Iterators
@@ -131,6 +147,15 @@ namespace ft
 			{return (_last - _first);}
 
 			/*
+			** Returns the size of the storage space currently allocated for the vector,
+			** expressed in terms of elements.
+			** This capacity is not necessarily equal to the vector size. It can be equal or greater,
+			** with the extra space allowing to accommodate for growth without the need to reallocate on each insertion.
+			*/
+			size_type capacity() const
+			{return (this->_capacity - this->_first);}	
+
+			/*
 			** Requests that the vector capacity be at least enough to contain n elements.
 			** If n is greater than the current vector capacity,
 			** the function causes the container to reallocate its storage increasing its capacity to n (or greater).
@@ -139,18 +164,21 @@ namespace ft
 			*/
 			void reserve (size_type n)
 			{
-				pointer	old_first = _first;
-				pointer	old_last = _last;
-
+				pointer		old_first = _first;
+				pointer		old_last = _last;
+				size_type	old_size = this->size();
+				size_type	old_capacity = this->capacity();
 
 				_first = _alloc.allocate(n);
 				_last = _first;
+				_capacity = _first + n;
 				while (old_first != old_last)
 				{
 					_alloc.construct(_last, *old_first);
 					_last++;
 					old_first++;
 				}
+				_alloc.deallocate(old_first - old_size, old_capacity);
 			}
 
 			// Element Access
@@ -184,6 +212,17 @@ namespace ft
 			}
 
 			// Allocator
+
+
+			// Remove Later
+			size_type get_size()
+			{
+				return (this->size());
+			}
+			size_type get_capacity()
+			{
+				return (this->capacity());
+			}
 
 		private:
 			pointer		_first;

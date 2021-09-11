@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:23:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/11 12:20:57 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/11 14:32:14 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 namespace ft
 {
-	template<typename T>
-	class random_access_iterator : public T
+	template<class T>
+	class random_access_iterator
 	{
 		public:
 			typedef	T	value_type;
@@ -133,7 +133,7 @@ namespace ft
 			{
 				random_access_iterator tmp(*this);
 			
-				tmp->p -= n;
+				tmp->p = (tmp->p - n);
 				return (tmp);
 			}
 			

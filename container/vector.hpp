@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/11 12:30:09 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/11 14:26:50 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ namespace ft
 			typedef T&					reference;
 			typedef typename allocator_type::size_type	size_type;
 			typedef random_access_iterator<T>		iterator;
+			typedef const random_access_iterator<T>		const_iterator;
 
 			// Constructors
 
@@ -107,7 +108,7 @@ namespace ft
 			_capacity(nullptr),
 			_alloc(x._alloc) 
 			{
-				this->insert()
+				this->insert(this->begin(), x.begin(), x.end());
 			}
 
 			// Destructors
@@ -145,6 +146,42 @@ namespace ft
 
 			// Iterators
 
+			/*
+			** Returns an iterator pointing to the first element in the vector.
+			** If the container is empty, the returned iterator value shall not be dereferenced.
+			*/
+			iterator begin()
+			{return (this->_first);}
+
+			/*
+			** Returns an iterator pointing to the first element in the vector.
+			** If the container is empty, the returned iterator value shall not be dereferenced.
+			*/
+			const_iterator begin() const
+			{return (this->_first);}
+
+			/*
+			** Returns an iterator referring to the past-the-end element in the vector container.
+			** If the container is empty, this function returns the same as vector::begin.
+			*/
+			iterator end()
+			{
+				if (this->empty())
+					return (this->begin());
+				return (this->_last);
+			}
+
+			/*
+			** Returns an iterator referring to the past-the-end element in the vector container.
+			** If the container is empty, this function returns the same as vector::begin.
+			*/
+			const iterator end() const
+			{
+				if (this->empty())
+					return (this->begin());
+				return (this->_last);
+			}
+
 			// Capacity
 
 			/*
@@ -161,6 +198,18 @@ namespace ft
 			*/
 			size_type capacity() const
 			{return (this->_capacity - this->_first);}	
+
+			/*
+			** Returns whether the vector is empty (i.e. whether its size is 0).
+			** This function does not modify the container in any way.
+			** To clear the content of a vector, see vector::clear.
+			*/
+			bool empty() const
+			{
+				if (this->size() == 0)
+					return (true);
+				return (false);
+			}
 
 			/*
 			** Requests that the vector capacity be at least enough to contain n elements.
@@ -226,22 +275,38 @@ namespace ft
 			** @param val The element to insert.
 			** @return An iterator to the new element in the container.
 			*/		
-			iterator insert (iterator position, const value_type& val)
-			{
+	//		iterator insert (iterator position, const value_type& val)
+	//		{
 
-			}
+	//		}
 
 			/*
 			** The vector is extended by inserting new elements before the element at the specified position,
 			** effectively increasing the container size by the number of elements inserted.
 			** This causes an automatic reallocation of the allocated storage.
-			** @param position The position where insert.
+			**
+			** @param The position where insert.
 			** @param n amount elements to insert.
 			** @param val The element to insert.
 			*/			
-			void insert (iterator position, size_type n, const value_type& val)
+	//		void insert (iterator position, size_type n, const value_type& val)
+	//		{
+					
+	//		}
+
+			/*
+			** The vector is extended by inserting new elements before the element at the specified position,
+			** effectively increasing the container size by the number of elements inserted.
+			** This causes an automatic reallocation of the allocated storage.
+			**
+			** @param Position in the vector where the new elements are inserted.
+			** @param Iterators specifying a range of elements (first)
+			** @param Iterators specifying a range of elements (last)
+			*/
+			template <class InputIterator>
+				void insert (iterator position, InputIterator first, InputIterator last)
 			{
-				
+			//	std::cout << first << std::endl;
 			}
 
 			// Allocator

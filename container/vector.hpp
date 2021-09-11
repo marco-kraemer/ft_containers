@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/10 11:33:10 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/11 12:30:09 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,13 @@ namespace ft
 			** Copy constructor
 			** Constructs a container with a copy of each of the elements in x, in the same order.
 			*/
-			vector (const vector& x)
+			vector (const vector& x) :
+			_first(nullptr),
+			_last(nullptr),
+			_capacity(nullptr),
+			_alloc(x._alloc) 
 			{
-				
+				this->insert()
 			}
 
 			// Destructors
@@ -212,6 +216,32 @@ namespace ft
 				}
 				_alloc.construct(_last, val);
 				_last++;
+			}
+
+			/*
+			** The vector is extended by inserting new elements before the element at the specified position,
+			** effectively increasing the container size by the number of elements inserted.
+			** This causes an automatic reallocation of the allocated storage.
+			** @param position The position where insert.
+			** @param val The element to insert.
+			** @return An iterator to the new element in the container.
+			*/		
+			iterator insert (iterator position, const value_type& val)
+			{
+
+			}
+
+			/*
+			** The vector is extended by inserting new elements before the element at the specified position,
+			** effectively increasing the container size by the number of elements inserted.
+			** This causes an automatic reallocation of the allocated storage.
+			** @param position The position where insert.
+			** @param n amount elements to insert.
+			** @param val The element to insert.
+			*/			
+			void insert (iterator position, size_type n, const value_type& val)
+			{
+				
 			}
 
 			// Allocator

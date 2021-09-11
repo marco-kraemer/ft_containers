@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:23:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/10 11:54:32 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/11 12:20:57 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ namespace ft
 			/*
 			** Operator =
 			*/
-			random_access_iterator& operator= (const random_access_iterator& x)
-			{return (*this);}
+			random_access_iterator& operator=(const random_access_iterator& x)
+			{
+				this->p = x.p;
+				return (*this);
+			}
 
 			/*
 			** destructor
@@ -88,7 +91,7 @@ namespace ft
 			/*
 			** Post-increment
 			*/
-			random_access_iterator& operator++(int)
+			random_access_iterator operator++(int)
 			{
 				random_access_iterator tmp(*this);
 			
@@ -96,6 +99,85 @@ namespace ft
 				return (tmp);
 			}
 
+			/*
+			** Pre-decrement
+			*/
+			random_access_iterator& operator--()
+			{
+				this->p--;
+				return (*this);
+			}
+
+			/*
+			** Post-decremet
+			*/
+			random_access_iterator operator--(int)
+			{
+				random_access_iterator tmp(*this);
+			
+				operator--();
+				return (tmp);
+			}
+
+			// Arithmetic operators
+
+			random_access_iterator operator+(int n) const
+			{
+				random_access_iterator tmp(*this);
+			
+				tmp->p += n;
+				return (tmp);
+			}
+
+			random_access_iterator operator-(int n) const
+			{
+				random_access_iterator tmp(*this);
+			
+				tmp->p -= n;
+				return (tmp);
+			}
+			
+			random_access_iterator& operator+=(int n)
+			{
+				this->p += n;
+				return (*this);
+			}
+
+			random_access_iterator& operator-=(int n)
+			{
+				this->p -= n;
+				return (*this);
+			}
+
+			// Bool operators
+		
+			bool operator>(const random_access_iterator &other) const
+			{
+				return (this->p > other.p);
+			}
+
+			bool operator<(const random_access_iterator &other) const
+			{
+				return (this->p < other.p);
+			}
+
+			bool operator>=(const random_access_iterator &other) const
+			{
+				return (this->p >= other.p);
+			}
+
+			bool operator<=(const random_access_iterator &other) const
+			{
+				return (this->p <= other.p);
+			}
+
+			/*
+			** Offset dereference operato
+			*/
+			reference	operator[](int n)const
+			{return (*(*this + n));}
+			
+			
 		private:
 			pointer	p;
 	};	

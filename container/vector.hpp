@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/13 18:28:00 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/13 19:31:19 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ namespace ft
 			typedef Alloc					allocator_type;
 			typedef T*					pointer;
 			typedef T&					reference;
+			typedef const T&				const_reference;
 			typedef typename allocator_type::size_type	size_type;
 			typedef random_access_iterator<T>		iterator;
 			typedef const random_access_iterator<T>		const_iterator;
@@ -65,7 +66,7 @@ namespace ft
 				_last = _first;
 				for (int length = 0; length < n; length++)
 				{
-					alloc.construct(_last, val);
+					_alloc.construct(_last, val);
 					_last++;
 				}
 			}
@@ -191,6 +192,64 @@ namespace ft
 			{return (_last - _first);}
 
 			/*
+			** Returns the maximum number of elements that the vector can hold.
+			** This is the maximum potential size the container can reach due to known system
+			** or library implementation limitations
+			*/
+			size_type max_size() const
+			{return (allocator_type().max_size());}
+
+			/*
+			** Resizes the container so that it contains n elements.
+			** If n is smaller than the current container size, the content is reduced to its first n elements,
+			** removing those beyond (and destroying them).
+			** If n is greater than the current container size,
+			** the content is expanded by inserting at the end as many elements as needed to reach a size of n.
+			** Notice that this function changes the actual content of the container by inserting or erasing elements from it.
+			*/
+			void resize (size_type n, value_type val = value_type())
+			{
+				int i = 0;
+				
+				if (!val)
+					val = 0;
+				pointer new_last = pointer();
+				if (n < this->size())
+				{
+					new_last = this->_first;
+					while (i < n)
+					{
+						i++;
+						new_last++;
+					}
+					this->_last = new_last;
+					while (i < this->size())
+					{
+						_alloc.deallocate(new_last, val);
+						new_last++;
+						i++;
+					}			
+				}
+				else if (n > this->size())
+				{
+					new_last = this->_first;
+					while (i < this->size())
+					{
+						i++;
+						new_last++;
+					}
+					_alloc.allocate(n);
+					while (i < n)
+					{
+						_alloc.construct(new_last, val);
+						i++;
+						new_last++;
+					}
+					_last = new_last;
+				}
+			}
+
+			/*
 			** Returns the size of the storage space currently allocated for the vector,
 			** expressed in terms of elements.
 			** This capacity is not necessarily equal to the vector size. It can be equal or greater,
@@ -245,6 +304,28 @@ namespace ft
 			reference operator[] (size_type n)
 			{return (*(_first + n));}
 
+			/*
+			** Returns a reference to the element at position n in the vector.
+			** This is in contrast with member operator[], that does not check against bounds.
+			*/
+			reference at (size_type n)
+			{
+				if (n > this->size())
+					throw std::out_of_range("Out of range");
+				return (*(_first + n));
+			}
+
+			/*
+			** Returns a reference to the element at position n in the vector.
+			** This is in contrast with member operator[], that does not check against bounds.
+			*/
+			const_reference at (size_type n) const
+			{
+				if (n > this->size())
+					throw std::out_of_range("Out of range");
+				return (*(_first + n));
+			}
+			
 			// Modifiers
 
 			/*
@@ -333,12 +414,12 @@ namespace ft
 						new_last = new_first + this->size() + size;
 						new_capacity = new_last;
 					}
-					for (int i = 0; i < &(*position) - _first; i++)
-						_alloc.construct(new_first + i, *(_first + i));
+			//		for (int i = 0; i < &(*position) - _first; i++)
+			//			_alloc.construct(new_first + i, *(_first + i));
 					for (int j = 0; &(*first) != &(*last); first++, j++)
 						_alloc.construct(new_first + (&(*position) - _first) + j, *first);
-					for (size_type k = 0; k < this->size() - (&(*position) - _first); k++)
-						_alloc.construct(new_first + (&(*position) - _first) + size + k, *(_first + (&(*position) - _first) + k));
+			//		for (size_type k = 0; k < this->size() - (&(*position) - _first); k++)
+			//			_alloc.construct(new_first + (&(*position) - _first) + size + k, *(_first + (&(*position) - _first) + k));
 
 					for (size_type l = 0; l < this->size(); l++)
 						_alloc.destroy(_first + l);

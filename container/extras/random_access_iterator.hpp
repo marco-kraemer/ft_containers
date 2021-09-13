@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:23:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/11 14:32:14 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/13 18:32:29 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ namespace ft
 	class random_access_iterator
 	{
 		public:
-			typedef	T	value_type;
-			typedef T*	pointer;
-			typedef T&	reference;
+			typedef	T		value_type;
+			typedef T*		pointer;
+			typedef T&		reference;
+			typedef std::ptrdiff_t	difference_type;
 
 			/*
 			** Default constructor
@@ -125,18 +126,23 @@ namespace ft
 			{
 				random_access_iterator tmp(*this);
 			
-				tmp->p += n;
+				tmp += n;
 				return (tmp);
 			}
 
-			random_access_iterator operator-(int n) const
+//			random_access_iterator operator-(int n) const
+//			{
+//				random_access_iterator tmp(*this);
+//			
+//				tmp -= n;
+//				return (tmp);
+//			}
+
+			difference_type operator-(random_access_iterator const &other) const
 			{
-				random_access_iterator tmp(*this);
-			
-				tmp->p = (tmp->p - n);
-				return (tmp);
+				return (this->p - other.p);
 			}
-			
+
 			random_access_iterator& operator+=(int n)
 			{
 				this->p += n;

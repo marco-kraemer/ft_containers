@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/11 14:26:50 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/13 18:28:00 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,48 @@ namespace ft
 			template <class InputIterator>
 				void insert (iterator position, InputIterator first, InputIterator last)
 			{
-			//	std::cout << first << std::endl;
+				size_type size = last - first;
+				if (size_type(_capacity - _last) >= size)
+				{
+					for (size_type i = 0; i < this->size() - (&(*position) - _first); i++)
+						_alloc.construct(_last - i + (size - 1), *(_last - i -1));
+					_last += size;
+					for (; &(*first) != &(*last); first++, position++)
+						_alloc.construct(&(*position), *first);
+				}
+				else
+				{
+					pointer new_first = pointer();
+					pointer new_last = pointer();
+					pointer new_capacity = pointer();
+
+					new_first = _alloc.allocate(this->size() * 2);
+					new_last = new_first + this->size() + size;
+					new_capacity = new_first + (this->size() * 2);
+
+					if (size_type(new_capacity - new_first) < this->size() + size)
+					{
+						if (new_first)
+							_alloc.deallocate(new_first, new_capacity - new_first);
+						new_first = _alloc.allocate(this->size() + size);
+						new_last = new_first + this->size() + size;
+						new_capacity = new_last;
+					}
+					for (int i = 0; i < &(*position) - _first; i++)
+						_alloc.construct(new_first + i, *(_first + i));
+					for (int j = 0; &(*first) != &(*last); first++, j++)
+						_alloc.construct(new_first + (&(*position) - _first) + j, *first);
+					for (size_type k = 0; k < this->size() - (&(*position) - _first); k++)
+						_alloc.construct(new_first + (&(*position) - _first) + size + k, *(_first + (&(*position) - _first) + k));
+
+					for (size_type l = 0; l < this->size(); l++)
+						_alloc.destroy(_first + l);
+					_alloc.deallocate(_first, this->capacity());
+
+					_first = new_first;
+					_last = new_last;
+					_capacity = new_capacity;
+				}
 			}
 
 			// Allocator

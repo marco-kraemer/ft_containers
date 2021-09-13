@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/13 19:32:11 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/13 19:52:35 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,14 @@ int main2(void)
 
 int main ()
 {
-	vector<int> myvector (10);
+	vector<int> myvector;
 
-	for (unsigned i=0; i<myvector.size(); i++)
-		myvector.at(i) = i * 2;
+	myvector.push_back(78);
+	myvector.push_back(16);
 
-	std::cout << "myvector contains:";
-	for (unsigned i=0; i<myvector.size(); i++)
-		std::cout << ' ' << myvector.at(i);
-	std::cout << '\n';
+	myvector.front() -= myvector.back();
+
+	std::cout << "myvector.front() is now " << myvector.front() << '\n';
 
 	return 0;
-	}
+}

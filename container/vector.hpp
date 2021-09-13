@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/13 19:31:19 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/13 19:52:05 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,6 +325,38 @@ namespace ft
 					throw std::out_of_range("Out of range");
 				return (*(_first + n));
 			}
+			
+			/*
+			** Returns a reference to the first element in the vector.
+			** Unlike member vector::begin, which returns an iterator to this same element,
+			** this function returns a direct reference.
+			*/
+			reference front()
+			{return (*_first);}
+
+			/*
+			** Returns a reference to the first element in the vector.
+			** Unlike member vector::begin, which returns an iterator to this same element,
+			** this function returns a direct reference.
+			*/
+			const_reference front() const
+			{return (*_first);}
+
+			/*
+			** Returns a reference to the last element in the vector.
+			** Unlike member vector::end, which returns an iterator just past this element,
+			** this function returns a direct reference.
+			*/
+			reference back()
+			{return (*(_last - 1));}
+
+			/*
+			** Returns a reference to the last element in the vector.
+			** Unlike member vector::end, which returns an iterator just past this element,
+			** this function returns a direct reference.
+			*/
+			const_reference back() const
+			{return (*(_last - 1));}
 			
 			// Modifiers
 

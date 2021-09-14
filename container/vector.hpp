@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/14 14:24:04 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/14 15:22:13 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -535,7 +535,27 @@ namespace ft
 			*/
 			iterator erase (iterator position)
 			{
+				if (&(*position) + 1 == _last)
+					_alloc.destroy(&(*position));
+				else
+				{
+					for (int i = 0; i < _last - &(*position) - 1; i++)
+					{
+						_alloc.construct(&(*position) + i, *(&(*position) + i + 1));
+						_alloc.destroy(&(*position) + i + 1);
+					}
+				}
+				_last--;
+				return (iterator(position));
+			}
 
+			/*
+			** Removes from the vector a single element(position).
+			** This effectively reduces the container size by the number of elements removed, which are destroyed.
+			*/
+			iterator erase (iterator first, iterator last)
+			{
+				
 			}
 
 			// Allocator

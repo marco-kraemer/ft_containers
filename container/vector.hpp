@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/14 14:20:11 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/14 14:24:04 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -527,6 +527,15 @@ namespace ft
 					_last = new_last;
 					_capacity = new_capacity;
 				}
+			}
+
+			/*
+			** Removes from the vector a single element(position).
+			** This effectively reduces the container size by the number of elements removed, which are destroyed.
+			*/
+			iterator erase (iterator position)
+			{
+
 			}
 
 			// Allocator

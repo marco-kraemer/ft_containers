@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/14 14:21:10 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/14 14:24:40 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,25 @@
 #include <vector>
 #include "../container/vector.hpp"
 
-using namespace ft;
+using namespace std;
 
 int main ()
 {
-	vector<int> first;
-	vector<int> second;
-	vector<int> third;
+	vector<int> myvector;
 
-	first.assign((size_t) 7, 0);             // 7 ints with a value of 100
+	// set some values (from 1 to 10)
+	for (int i=1; i<=10; i++) myvector.push_back(i);
 
-	vector<int>::iterator it;
-	it=first.begin()+1;
+	// erase the 6th element
+	myvector.erase (myvector.begin()+5);
 
-	second.assign (it,first.end()-1); // the 5 central values of first
+	// erase the first 3 elements:
+	myvector.erase (myvector.begin(),myvector.begin()+3);
 
-	int myints[] = {1776,7,4};
-	third.assign (myints,myints+3);   // assigning from array.
+	std::cout << "myvector contains:";
+	for (unsigned i=0; i<myvector.size(); ++i)
+	std::cout << ' ' << myvector[i];
+	std::cout << '\n';
 
-	std::cout << "Size of first: " << int (first.size()) << '\n';
-	std::cout << "Size of second: " << int (second.size()) << '\n';
-	std::cout << "Size of third: " << int (third.size()) << '\n';
 	return 0;
 }

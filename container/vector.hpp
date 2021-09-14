@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/13 19:52:05 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/14 14:20:11 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,6 +361,60 @@ namespace ft
 			// Modifiers
 
 			/*
+			** Assigns new contents to the vector, replacing its current contents,
+			** and modifying its size accordingly.
+			*/
+			template <class InputIterator>
+			void assign (InputIterator first, InputIterator last)
+			{
+				size_type dist    = last - first;
+			
+				if (this->capacity() >= dist)
+				{
+					for (; &(*first) != &(*last); first++, _last++)
+						_alloc.construct(_last, *first);
+				}
+				else
+				{
+					pointer new_first    = pointer();
+					pointer new_last     = pointer();
+					pointer new_capacity = pointer();
+
+					new_first    = _alloc.allocate(dist);
+					new_last     = new_first;
+					new_capacity = new_first + dist;
+					
+					while (&(*first) != &(*last))
+					{
+						_alloc.construct(new_last, *first);
+						first++;
+						new_last++;
+					}
+					_alloc.deallocate(_first, this->capacity());
+					_first    = new_first;
+					_last     = new_last;
+					_capacity = new_capacity;
+				}
+			}
+
+			/*
+			** Assigns new contents to the vector, replacing its current contents,
+			** and modifying its size accordingly.
+			*/
+			void assign (size_type n, const_reference val)
+			{
+				if (n > this->capacity())
+				{
+					_alloc.deallocate(_first, this->capacity());
+					_first = _alloc.allocate(n);
+				}
+				_last = _first;
+				_capacity = _first + n;
+				for (; this->size() < n;_last++)
+					_alloc.construct(_last, val);
+			}
+
+			/*
 			** Adds a new element at the end of the vector, after its current last element.
 			** The content of val is copied (or moved) to the new element.
 			*/		
@@ -378,6 +432,18 @@ namespace ft
 				}
 				_alloc.construct(_last, val);
 				_last++;
+			}
+
+			/*
+			** Removes the last element in the vector, effectively reducing the container size by one.
+			** This destroys the removed element.
+			*/
+			void pop_back()
+			{
+				pointer	old_last = _last;
+				old_last--;
+				_alloc.destroy(_last);
+				_last = old_last;
 			}
 
 			/*

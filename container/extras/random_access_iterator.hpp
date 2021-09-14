@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:23:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/13 18:32:29 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/14 13:41:52 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,13 +130,13 @@ namespace ft
 				return (tmp);
 			}
 
-//			random_access_iterator operator-(int n) const
-//			{
-//				random_access_iterator tmp(*this);
-//			
-//				tmp -= n;
-//				return (tmp);
-//			}
+			random_access_iterator operator-(int n) const
+			{
+				random_access_iterator tmp(*this);
+			
+				tmp -= n;
+				return (tmp);
+			}
 
 			difference_type operator-(random_access_iterator const &other) const
 			{

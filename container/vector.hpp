@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/14 15:22:13 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/15 09:47:33 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ namespace ft
 				_first = _alloc.allocate(n);
 				_capacity = _first + n;
 				_last = _first;
-				for (int length = 0; length < n; length++)
+				for (int length = 0; length < (int)n; length++)
 				{
 					_alloc.construct(_last, val);
 					_last++;
@@ -555,7 +555,55 @@ namespace ft
 			*/
 			iterator erase (iterator first, iterator last)
 			{
+				pointer	new_first = &(*first);
 				
+				while (&(*first) != &(*last))
+				{
+					_alloc.destroy(&(*first));
+					first++;
+				}
+				for (int i = 0; i < _last - &(*last); i++)
+				{
+					_alloc.construct(new_first + i, *(&(*last) + i));
+					_alloc.destroy(&(*last) + i);
+				}
+				_last -= (&(*last) - new_first);
+				return (iterator(new_first));
+			}
+
+			/*
+			** Exchanges the content of the container by the content of x,
+			** which is another vector object of the same type. Sizes may differ.
+			*/
+			void swap (vector& x)
+			{
+				pointer tmp_first		= this->_first;
+				pointer	tmp_last		= this->_last;
+				pointer tmp_capacity		= this->_capacity;
+				allocator_type tmp_alloc	= this->_alloc;
+			
+				this->_first	= x._first;
+				this->_last 	= x._last;
+				this->_capacity	= x._capacity;
+				this->_alloc	= x._alloc;
+	
+				x._first	= tmp_first;
+				x._last		= tmp_last;
+				x._capacity	= tmp_capacity;
+				x._alloc	= tmp_alloc;
+			}
+
+			/*
+			** Removes all elements from the vector (which are destroyed),
+			** leaving the container with a size of 0.
+			*/
+			void clear()
+			{
+				while (_last != _first)
+				{
+					_alloc.destroy(_last);
+					_last--;
+				}
 			}
 
 			// Allocator

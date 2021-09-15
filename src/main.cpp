@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/14 15:16:05 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/15 09:47:57 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ using namespace ft;
 
 int main ()
 {
-	vector<int> myvector;
+	vector<int> foo ((size_t) 3,100);   // three ints with a value of 100
+	vector<int> bar ((size_t)5,200);   // five ints with a value of 200
 
-	for (int i=1; i<=10; i++)
-		myvector.push_back(i);
+	foo.swap(bar);
 
-	myvector.erase (myvector.begin() + 6);
+	std::cout << "foo contains:";
+	for (unsigned i=0; i<foo.size(); i++)
+		std::cout << ' ' << foo[i];
+	std::cout << '\n';
 
-	myvector.erase (myvector.begin(),myvector.begin() + 3);
-
-	std::cout << "myvector contains:";
-	for (unsigned i = 0; i < myvector.size(); ++i)
-		std::cout << " " << myvector[i];
-	
-	std::cout << "\n";
+	std::cout << "bar contains:";
+	for (unsigned i=0; i<bar.size(); i++)
+		std::cout << ' ' << bar[i];
+	std::cout << '\n';
 
 	return 0;
 }

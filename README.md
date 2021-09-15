@@ -1,5 +1,5 @@
 ## TODO Vector functions
-* rbegin, rend, insert(finish), swap, clear, get_allocator
+* rbegin, rend, insert(finish), get_allocator
 
 ## Links
 * https://www.cplusplus.com/reference/vector/vector/

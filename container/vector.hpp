@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/15 09:47:33 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/15 09:51:46 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -607,7 +607,12 @@ namespace ft
 			}
 
 			// Allocator
-
+	
+			/*
+			** Returns a copy of the allocator object associated with the vector.
+			*/
+			allocator_type get_allocator() const
+			{return (this->_alloc);}
 
 			// Remove Later
 			size_type get_size()

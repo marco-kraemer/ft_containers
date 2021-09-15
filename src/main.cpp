@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/15 09:47:57 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/15 09:52:01 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,23 @@ using namespace ft;
 
 int main ()
 {
-	vector<int> foo ((size_t) 3,100);   // three ints with a value of 100
-	vector<int> bar ((size_t)5,200);   // five ints with a value of 200
+	vector<int> myvector;
+	int * p;
+	unsigned int i;
 
-	foo.swap(bar);
+	// allocate an array with space for 5 elements using vector's allocator:
+	p = myvector.get_allocator().allocate(5);
 
-	std::cout << "foo contains:";
-	for (unsigned i=0; i<foo.size(); i++)
-		std::cout << ' ' << foo[i];
+	// construct values in-place on the array:
+	for (i=0; i<5; i++) myvector.get_allocator().construct(&p[i],i);
+
+	std::cout << "The allocated array contains:";
+	for (i=0; i<5; i++) std::cout << ' ' << p[i];
 	std::cout << '\n';
 
-	std::cout << "bar contains:";
-	for (unsigned i=0; i<bar.size(); i++)
-		std::cout << ' ' << bar[i];
-	std::cout << '\n';
+	// destroy and deallocate:
+	for (i=0; i<5; i++) myvector.get_allocator().destroy(&p[i]);
+	myvector.get_allocator().deallocate(p,5);
 
 	return 0;
 }

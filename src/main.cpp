@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/15 09:52:01 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:01:21 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,28 @@ using namespace ft;
 
 int main ()
 {
-	vector<int> myvector;
-	int * p;
-	unsigned int i;
+	vector<int> myvector ((size_t)3,100);
+	vector<int>::iterator it;
 
-	// allocate an array with space for 5 elements using vector's allocator:
-	p = myvector.get_allocator().allocate(5);
+	it = myvector.begin();
+	it = myvector.insert (it , 200);
+//	it = myvector.insert (it , 300);
 
-	// construct values in-place on the array:
-	for (i=0; i<5; i++) myvector.get_allocator().construct(&p[i],i);
 
-	std::cout << "The allocated array contains:";
-	for (i=0; i<5; i++) std::cout << ' ' << p[i];
+	// "it" no longer valid, get a new one:
+//	it = myvector.begin();
+
+//	std::vector<int> anothervector (2,400);
+//	myvector.insert (it+2,anothervector.begin(),anothervector.end());
+
+//	int myarray [] = { 501,502,503 };
+//	myvector.insert (myvector.begin(), myarray, myarray+3);
+	it = myvector.begin();
+
+	std::cout << "myvector contains:";
+	for (it=myvector.begin(); it<myvector.end(); it++)
+		std::cout << ' ' << *it;
 	std::cout << '\n';
-
-	// destroy and deallocate:
-	for (i=0; i<5; i++) myvector.get_allocator().destroy(&p[i]);
-	myvector.get_allocator().deallocate(p,5);
 
 	return 0;
 }

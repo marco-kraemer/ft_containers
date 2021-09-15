@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/15 09:51:46 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/15 12:02:59 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -450,14 +450,29 @@ namespace ft
 			** The vector is extended by inserting new elements before the element at the specified position,
 			** effectively increasing the container size by the number of elements inserted.
 			** This causes an automatic reallocation of the allocated storage.
+			**
 			** @param position The position where insert.
 			** @param val The element to insert.
 			** @return An iterator to the new element in the container.
 			*/		
-	//		iterator insert (iterator position, const value_type& val)
-	//		{
+			iterator insert (iterator position, const value_type& val)
+			{
+				int	i	= 0;
+				int	j	= 1;
 
-	//		}
+				if (this->capacity() <= (int)this->size())
+					_alloc.allocate(*_capacity * 2);
+				_last++;
+				while ((&(*(position)) + j) != _last)
+				{
+					_alloc.construct(&(*position) + j, *(&(*(position)) + i));
+					_alloc.destroy(&(*position) + j + 1);
+					i++;
+					j++;
+				}
+				_alloc.construct(&(*position), val);
+				return (iterator(_last - i - 1));
+			}
 
 			/*
 			** The vector is extended by inserting new elements before the element at the specified position,
@@ -468,10 +483,23 @@ namespace ft
 			** @param n amount elements to insert.
 			** @param val The element to insert.
 			*/			
-	//		void insert (iterator position, size_type n, const value_type& val)
-	//		{
-					
-	//		}
+			void insert (iterator position, size_type n, const value_type& val)
+			{
+				int	i	= 0;
+				int	j	= 1;
+
+				if (*_capacity <= (int)this->size())
+					_alloc.allocate(this->size() * 2);
+				_last += n;
+				while ((&(*(position)) + j) != _last)
+				{
+					_alloc.construct(&(*position) + j, *(&(*(position)) + i));
+					_alloc.destroy(&(*position) + j + 1);
+					i++;
+					j++;
+				}
+				_alloc.construct(&(*position), val);
+			}
 
 			/*
 			** The vector is extended by inserting new elements before the element at the specified position,

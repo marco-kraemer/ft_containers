@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/15 12:02:59 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/16 10:51:05 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -457,21 +457,49 @@ namespace ft
 			*/		
 			iterator insert (iterator position, const value_type& val)
 			{
-				int	i	= 0;
-				int	j	= 1;
+				size_type len = &(*position) - _first;
 
-				if (this->capacity() <= (int)this->size())
-					_alloc.allocate(*_capacity * 2);
-				_last++;
-				while ((&(*(position)) + j) != _last)
+				if (size_type(_capacity - _last) >= this->size() + 1)
 				{
-					_alloc.construct(&(*position) + j, *(&(*(position)) + i));
-					_alloc.destroy(&(*position) + j + 1);
-					i++;
-					j++;
+					for (size_type i = 0; i < len; i++)
+						_alloc.construct(_last - i, *(_last - i - 1));
+					_last++;
+					_alloc.construct(&(*position), val);
 				}
-				_alloc.construct(&(*position), val);
-				return (iterator(_last - i - 1));
+				else
+				{
+					int next_capacity;
+					if (this->size() * 2 > 0)
+						next_capacity = this->size() * 2;
+					else
+						next_capacity = 1;
+
+					pointer new_first = pointer();
+					pointer new_last = pointer();
+					pointer new_capacity = pointer();
+
+				
+					new_first = _alloc.allocate(next_capacity);
+					new_last = new_first + this->size() + 1;
+					new_capacity = new_first + next_capacity;
+
+					for (size_type i = 0; i < len; i++)
+						_alloc.construct(new_first + i, *(_first + i));
+					_alloc.construct(new_first + len, val);
+					for (size_type j = 0; j < this->size() - len; j++)
+						_alloc.construct(new_last - j - 1, *(_last - j - 1));
+
+					for (size_type l = 0; l < this->size(); l++)
+						_alloc.destroy(_first + l);
+
+					if (_first)
+						_alloc.deallocate(_first, this->capacity());
+
+					_first = new_first;
+					_last = new_last;
+					_capacity = new_capacity;					
+				}
+				return (iterator(_first + len));
 			}
 
 			/*
@@ -485,20 +513,61 @@ namespace ft
 			*/			
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				int	i	= 0;
-				int	j	= 1;
-
-				if (*_capacity <= (int)this->size())
-					_alloc.allocate(this->size() * 2);
-				_last += n;
-				while ((&(*(position)) + j) != _last)
+				size_type len = &(*position) - _first;
+				size_type size = n;
+				
+				if (size_type(_capacity - _last) >= n)
 				{
-					_alloc.construct(&(*position) + j, *(&(*(position)) + i));
-					_alloc.destroy(&(*position) + j + 1);
-					i++;
-					j++;
+					for (size_type i = 0; i < this->size() - len; i++)
+						_alloc.construct(_last - i + (n - 1), *(_last - i - 1));
+					_last += n;
+					while (n)
+					{
+						_alloc.construct(&(*position) + (n - 1), val);
+						n--;
+					}
 				}
-				_alloc.construct(&(*position), val);
+				else
+				{
+					int next_capacity;
+					if (this->size() * 2 > 0)
+						next_capacity = this->size() * 2;
+					else
+						next_capacity = 1;
+				
+					pointer new_first = pointer();
+					pointer new_last = pointer();
+					pointer new_capacity = pointer();
+
+					new_first = _alloc.allocate(next_capacity);
+					new_capacity = new_first + next_capacity;
+
+					if (size_type(new_capacity - new_first) < this->size() + size)
+					{
+						if (new_first)
+							_alloc.deallocate(new_first, new_first - new_capacity);
+						new_first = _alloc.allocate(this->size() + size);
+						new_last = new_first + this->size() + size;
+						new_capacity = new_first + (this->size() + size);
+					}
+					
+					new_last = new_first + this->size() + size;
+					
+					for (int i = 0; i < &(*position) - _first; i++)
+						_alloc.construct(new_first + i, *(_first + i));
+					for (size_type j = 0; j < n; j++)
+						_alloc.construct(new_first + len + j, val);
+					for (size_type j = 0; j < (this->size() - len); j++)
+						_alloc.construct(new_last - j - 1, *(_last - j - 1));
+						
+					for (size_type l = 0; l < this->size(); l++)
+						_alloc.destroy(_first + l);
+					_alloc.deallocate(_first, this->capacity());
+
+					_first = new_first;
+					_last = new_last;
+					_capacity = new_capacity;
+				}
 			}
 
 			/*
@@ -540,12 +609,12 @@ namespace ft
 						new_last = new_first + this->size() + size;
 						new_capacity = new_last;
 					}
-			//		for (int i = 0; i < &(*position) - _first; i++)
-			//			_alloc.construct(new_first + i, *(_first + i));
+					for (int i = 0; i < &(*position) - _first; i++)
+						_alloc.construct(new_first + i, *(_first + i));
 					for (int j = 0; &(*first) != &(*last); first++, j++)
 						_alloc.construct(new_first + (&(*position) - _first) + j, *first);
-			//		for (size_type k = 0; k < this->size() - (&(*position) - _first); k++)
-			//			_alloc.construct(new_first + (&(*position) - _first) + size + k, *(_first + (&(*position) - _first) + k));
+					for (size_type k = 0; k < this->size() - (&(*position) - _first); k++)
+						_alloc.construct(new_first + (&(*position) - _first) + size + k, *(_first + (&(*position) - _first) + k));
 
 					for (size_type l = 0; l < this->size(); l++)
 						_alloc.destroy(_first + l);

@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/15 12:01:21 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/16 10:51:37 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
 
 using namespace ft;
 
-int main ()
+int	main(void)
 {
 	vector<int> myvector ((size_t)3,100);
 	vector<int>::iterator it;
 
 	it = myvector.begin();
 	it = myvector.insert (it , 200);
-//	it = myvector.insert (it , 300);
 
+	myvector.insert (it, (size_t)2, 300);
 
 	// "it" no longer valid, get a new one:
-//	it = myvector.begin();
+	it = myvector.begin();
 
-//	std::vector<int> anothervector (2,400);
-//	myvector.insert (it+2,anothervector.begin(),anothervector.end());
+	std::vector<int> anothervector (2,400);
+	myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
-//	int myarray [] = { 501,502,503 };
-//	myvector.insert (myvector.begin(), myarray, myarray+3);
+	int myarray [] = { 501,502,503 };
+	myvector.insert (myvector.begin(), myarray, myarray+3);
 	it = myvector.begin();
 
 	std::cout << "myvector contains:";

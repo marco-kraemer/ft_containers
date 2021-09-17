@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/16 10:51:05 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/16 11:08:47 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,23 +230,8 @@ namespace ft
 						i++;
 					}			
 				}
-				else if (n > this->size())
-				{
-					new_last = this->_first;
-					while (i < this->size())
-					{
-						i++;
-						new_last++;
-					}
-					_alloc.allocate(n);
-					while (i < n)
-					{
-						_alloc.construct(new_last, val);
-						i++;
-						new_last++;
-					}
-					_last = new_last;
-				}
+				else
+					insert(this->end(), n - this->size(), val);
 			}
 
 			/*
@@ -710,16 +695,6 @@ namespace ft
 			*/
 			allocator_type get_allocator() const
 			{return (this->_alloc);}
-
-			// Remove Later
-			size_type get_size()
-			{
-				return (this->size());
-			}
-			size_type get_capacity()
-			{
-				return (this->capacity());
-			}
 
 		private:
 			pointer		_first;

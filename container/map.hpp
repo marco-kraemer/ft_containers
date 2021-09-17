@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/17 15:03:19 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/17 15:23:30 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,29 @@ namespace ft
 		typedef allocator_type::pointer			const_pointer;
 		typedef allocator_type::const_pointer		const_pointer;
 		typedef size_t					size_type;
+	
+		// Constructors / Destructors
+
+		/*
+		** Constructs a map container object, initializing its contents depending on the constructor version used
+		*/
+		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+		{}
+		// Iterators
+
+		// Capacity
+
+		// Element Access
+
+		// Modifiers
+
+		// Observers
+
+		// Operations
+
+		// Allocator
+
+		private:
 	};
 }
 

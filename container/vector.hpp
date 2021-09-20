@@ -6,21 +6,14 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/17 15:24:07 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:09:37 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-# include <iostream>
-# include <vector>
-# include <memory>
-# include <algorithm>
-# include <cstddef>
-# include <tgmath.h>
-
-# include "extras/random_access_iterator.hpp"
+# include "extras/extras.hpp"
 
 namespace ft
 {

@@ -6,14 +6,14 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 09:23:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/16 11:37:34 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:11:12 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RANDOM_ACCESS_ITERATOR_HPP
 # define RANDOM_ACCESS_ITERATOR_HPP
 
-#include "../vector.hpp"
+#include "extras.hpp"
 
 namespace ft
 {

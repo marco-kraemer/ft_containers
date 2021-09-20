@@ -6,21 +6,13 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/17 15:23:30 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:10:53 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 #define MAP_HPP
 
-# include <iostream>
-# include <vector>
-# include <memory>
-# include <algorithm>
-# include <cstddef>
-# include <tgmath.h>
-
-# include "extras/random_access_iterator.hpp"
 # include "extras/extras.hpp"
 
 namespace ft
@@ -47,6 +39,7 @@ namespace ft
 		*/
 		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 		{}
+	
 		// Iterators
 
 		// Capacity
@@ -62,6 +55,8 @@ namespace ft
 		// Allocator
 
 		private:
+			allocator_type	_alloc;
+			
 	};
 }
 

@@ -6,12 +6,25 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:37:20 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/17 15:14:56 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/20 12:11:27 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXTRAS_HPP
 #define EXTRAS_HPP
+
+# include <iostream>
+# include <vector>
+# include <memory>
+# include <algorithm>
+# include <cstddef>
+# include <tgmath.h>
+
+# include "extras/random_access_iterator.hpp"
+# include "extras/AVLtree.hpp"
+# include "../vector.hpp"
+# include "../map.hpp"
+
 
 namespace ft
 {

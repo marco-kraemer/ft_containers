@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:45:56 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/20 12:27:57 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 13:57:02 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,56 @@ namespace ft
 				if (N == NULL)
 					return (0);
 				return (height(N->left) - height(N->right));
+			}
+
+			Node *insert(Node *node, int key)
+			{
+				if (node == NULL)
+					return (newNode(key));
+
+				if (key < node->key)
+					node->left = insert(node->left, key);
+				else if (key > node->key)
+					node->right = insert(node->right, key);
+				else
+					return (node);
+				
+				node->height = 1 + max(height(node->left), height(node->right));
+				int balance = getBalance(node);
+
+				// Left Left Case
+				if (balance > 1 && key < node->left->key)
+					return (rightRotate(node));
+
+				// Right Right Case
+				if (balance < -1 && key > node->right->key)
+					return (leftRotate(node));
+
+				// Left Right Case
+				if (balance > 1 && key > node->left->key)
+				{
+					node->left = leftRotate(node->left);
+					return (rightRotate(node));
+				}
+
+				// Right Left Case
+				if (balance < -1 && key < node->right->key)
+				{
+					node->right = rightRotate(node->right);
+					return (leftRotate(node));
+				}
+
+				return (node);
+			}
+
+			void preOrder(Node *root)
+			{
+				if(root != NULL)
+				{
+					std::cout << root->key << " ";
+					preOrder(root->left);
+					preOrder(root->right);
+				}
 			}
 
 	};

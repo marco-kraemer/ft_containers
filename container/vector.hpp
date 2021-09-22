@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/20 12:09:37 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:30:33 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ namespace ft
 					_alloc.construct(_last, *first++);
 					_last++;
 				}
-
 			}
 
 			/*

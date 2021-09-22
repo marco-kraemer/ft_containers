@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 14:25:00 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:44:01 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,68 @@ namespace ft
 			// Constructors / Destructors
 
 			/*
-			** Constructs a map container object, initializing its contents depending on the constructor version used
+			** Empty container constructor (default constructor)
+			** Constructs an empty container, with no elements.
 			*/
-			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
+				_alloc(nullptr),
+				_avl(NULL)
 			{}
-		
+			
+			/*
+			** Range constructor
+			** Constructs a container with as many elements as the range [first,last),
+			** with each element constructed from its corresponding element in that range, in the same order.
+			*/
+			template <class InputIterator>
+			map (InputIterator first, InputIterator last,
+				const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
+				_alloc(alloc),
+//				_comp(comp),
+				_avl()
+			{}
+			
+			/*
+			** Copy constructor
+			** Constructs a container with a copy of each of the elements in x, in the same order.
+			*/
+			map (const map& x) :
+				_alloc(x._alloc),
+				_avl()
+			{}
+
+			/*
+			** This destroys all container elements,
+			** and deallocates all the storage capacity allocated by the map container using its allocator.
+			*/
+			~map()
+			{}
+			
+			/*
+			** The elements stored in the container before the call are either assigned to or destroyed.
+			*/
+			map& operator= (const map& x)
+			{
+				this->_avl = x._avl;
+				this->_alloc = x._alloc;
+				return (*this);
+			}
+
 			// Iterators
 
 			// Capacity
 
 			// Element Access
+
+			/*
+			** If k matches the key of an element in the container, the function returns a reference to its mapped value.
+			** If k does not match the key of any element in the container,
+			** the function inserts a new element with that key and returns a reference to its mapped value
+			*/
+			mapped_type& operator[] (const key_type& k)
+			{
+				iterator
+			}
 
 			// Modifiers
 
@@ -161,8 +213,8 @@ namespace ft
 			// Allocator
 
 		private:
-			allocator_type	_alloc;
-			
+			avl_tree		_avl;
+			allocator_type		_alloc;
 	};
 }
 

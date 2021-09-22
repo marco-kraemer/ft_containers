@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:45:56 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 13:57:02 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 14:33:44 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@ namespace ft
 			Node *left;
 			Node *right;
 			int height;
-
-//		Node():
-//			key(NULL),
-//			left(nullptr),
-//			right(nullptr),
-//			height(0)
-//		{}	
 	};
 
 	class avl_tree
@@ -45,7 +38,12 @@ namespace ft
 			/*
 			** Get maximum of two integers
 			*/
-			int max(int a, int b);
+			int max(int a, int b)
+			{
+				if (a > b)
+					return (a);
+				return (b);
+			}
 
 			/*
 			** Get height of the tree
@@ -69,7 +67,10 @@ namespace ft
 				node->height = 1;
 				return (node);
 			}
-
+		
+			/*
+			** Rotate AVL tree to the right
+			*/
 			Node *rightRotate(Node *y)
 			{
 				Node *x = y->left;
@@ -83,7 +84,10 @@ namespace ft
 
 				return (x);
 			}
-			
+
+			/*
+			** Rotate AVL tree to the left
+			*/			
 			Node *leftRotate(Node *x)
 			{
 				Node *y = x->right;
@@ -98,6 +102,9 @@ namespace ft
 				return (y);
 			}
 
+			/*
+			** Get the difference height between nodes
+			*/
 			int getBalance(Node *N)
 			{
 				if (N == NULL)
@@ -105,6 +112,10 @@ namespace ft
 				return (height(N->left) - height(N->right));
 			}
 
+			/*
+			** Recursive function to insert an element
+			** and balance the tree, if necessary
+			*/
 			Node *insert(Node *node, int key)
 			{
 				if (node == NULL)

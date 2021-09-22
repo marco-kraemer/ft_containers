@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 14:09:55 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:26:12 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@ using namespace ft;
 
 int main ()
 {
-	ft::avl_tree Avl;
-	ft::Node *root = NULL;
-	root = Avl.insert(root, 10);
+	ft::map<int, int> first;
+
+	first[1] = 1;
 	
+	/*
+	ft::avl_tree Avl;
+	ft::Node *root;
+
+	root = Avl.insert(root, 10);
 	root = Avl.insert(root, 20);
 	root = Avl.insert(root, 30);
 	root = Avl.insert(root, 40);
@@ -29,6 +34,6 @@ int main ()
 	std::cout << "Preorder traversal of the "
 		"constructed AVL tree is \n";
 	Avl.preOrder(root);
-
+	*/
 	return 0;
 }

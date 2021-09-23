@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 22:43:28 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 23:35:56 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ namespace ft
 			*/
 			explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 				_alloc(nullptr),
-				_avl(NULL)
+				_tree()
 			{}
 			
 			/*
@@ -162,9 +162,8 @@ namespace ft
 			map (InputIterator first, InputIterator last,
 				const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 				_alloc(alloc),
-//				_comp(comp),
-				_value(x._value)
-				_avl()
+				_comp(comp),
+				_tree()
 			{}
 			
 			/*
@@ -173,8 +172,8 @@ namespace ft
 			*/
 			map (const map& x) :
 				_alloc(x._alloc),
-				_value(x._value)
-				_avl()
+				_value(x._value),
+				_tree()
 			{}
 
 			/*
@@ -189,7 +188,7 @@ namespace ft
 			*/
 			map& operator= (const map& x)
 			{
-				this->_avl = x._avl;
+				this->_tree = x._tree;
 				this->_alloc = x._alloc;
 				return (*this);
 			}
@@ -199,10 +198,10 @@ namespace ft
 			/*
 			** Returns an iterator referring to the first element in the map container.
 			*/
-			iterator begin()
-			{
-				return (_avl.);
-			}
+//			iterator begin()
+//			{
+//				return ();
+//			}
 			
 			// Capacity
 
@@ -225,9 +224,10 @@ namespace ft
 			// Allocator
 
 		private:
-			avl_tree		_avl;
-			allocator_type		_alloc;
-			value_type		_value;
+			Tree<value_type, Compare>	_tree;
+			allocator_type			_alloc;
+			value_type			_value;
+			Compare				_comp;
 	};
 }
 

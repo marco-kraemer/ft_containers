@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:45:56 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 22:43:26 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/23 00:05:20 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,163 +17,54 @@
 
 namespace ft
 {
-
-	/*
-	** AVL tree is a self-balancing Binary Search Tree (BST)
-	** where the difference between heights of left and right subtrees cannot be more than one for all nodes. 
-	*/
-
-	class avl_tree
+	template <typename T, typename Compare>
+	class Tree
 	{
-
-		class Node
+		typedef size_t			size_type;
+		
+		typedef	T			value_type;
+		
+		typedef value_type*		pointer;
+		
+		typedef value_type const *	const_pointer;
+		
+		typedef value_type&		reference;
+		
+		typedef value_type const &	const_reference;
+		
+		struct Node
 		{
-			public:
-				int	key;
-				int	value;
-				Node	*left;
-				Node	*right;
-				int	height;
+			value_type value;
+			Node *parent;
+			Node *left;
+			Node *right;
+
+			Node(const_reference val=value_type()):
+				value(val), parent(nullptr), left(nullptr), right(nullptr) {}
+			Node(Node const &other):
+				value(other.value), parent(nullptr), left(nullptr), right(nullptr) {}
 		};
+		
+		typedef Node*			node_pointer;
+	
+		protected:
+			node_pointer	_root;
+			node_pointer	_begin;
+			node_pointer	_end;
+			Compare		_comp;
 
 		public:
-			/*
-			** Get maximum of two integers
-			*/
-			int max(int a, int b)
-			{
-				if (a > b)
-					return (a);
-				return (b);
-			}
+			Tree() :
+				_root(nullptr),
+				_begin(nullptr),
+				_end(nullptr)
+			{}
 
-			/*
-			** Get height of the tree
-			*/
-			int height(Node *N)
-			{
-				if (N == NULL)
-					return 0;
-				return (N->height);
-			}
+			Node* begin(void) const
+			{return (this->_begin);}
 
-			/*
-			**  Alloc new node with the given key
-			*/
-			Node *newNode(int key, int value)
-			{
-				Node *node = new Node();
-				node->key = key;
-				node->left = NULL;
-				node->right = NULL;
-				node->value = value;
-				node->height = 1;
-				return (node);
-			}
-		
-			/*
-			** Rotate AVL tree to the right
-			*/
-			Node *rightRotate(Node *y)
-			{
-				Node *x = y->left;
-				Node *T2 = x->right;
-
-				x->right = y;
-				y->left = T2;
-
-				y->height = max(height(y->left), height(y->right)) + 1;
-				x->height = max(height(x->left), height(x->right)) + 1;
-
-				return (x);
-			}
-
-			/*
-			** Rotate AVL tree to the left
-			*/			
-			Node *leftRotate(Node *x)
-			{
-				Node *y = x->right;
-				Node *T2 = y->left;
-				
-				y->left = x;
-				x->right = T2;
-				
-				x->height = max(height(x->left), height(x->right)) + 1;
-				y->height = max(height(y->left), height(y->right)) + 1;
-				
-				return (y);
-			}
-
-			/*
-			** Get the difference height between nodes
-			*/
-			int getBalance(Node *N)
-			{
-				if (N == NULL)
-					return (0);
-				return (height(N->left) - height(N->right));
-			}
-
-			/*
-			** Recursive function to insert an element
-			** and balance the tree, if necessary
-			*/
-			Node *insert(Node *node, int key, int value)
-			{
-				if (node == NULL)
-					return (newNode(key, value));
-
-				if (key < node->key)
-					node->left = insert(node->left, key, value);
-				else if (key > node->key)
-					node->right = insert(node->right, key, value);
-				else
-					return (node);
-				
-				node->height = 1 + max(height(node->left), height(node->right));
-				int balance = getBalance(node);
-
-				// Left Left Case
-				if (balance > 1 && key < node->left->key)
-					return (rightRotate(node));
-
-				// Right Right Case
-				if (balance < -1 && key > node->right->key)
-					return (leftRotate(node));
-
-				// Left Right Case
-				if (balance > 1 && key > node->left->key)
-				{
-					node->left = leftRotate(node->left);
-					return (rightRotate(node));
-				}
-
-				// Right Left Case
-				if (balance < -1 && key < node->right->key)
-				{
-					node->right = rightRotate(node->right);
-					return (leftRotate(node));
-				}
-
-				return (node);
-			}
-
-			void preOrder(Node *root)
-			{
-				if(root != NULL)
-				{
-					std::cout << root->key << " ";
-					preOrder(root->left);
-					preOrder(root->right);
-				}
-			}
-
-
-		//	Node *get_first_node(avl_tree avl)
-		//	{return (a)}
-
-
+			Node* end(void) const
+			{return (this->_end);}
 	};
 }
 

@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 16:24:16 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 22:43:28 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ namespace ft
 			*/
 			iterator begin()
 			{
-				return (iterator(_avl.get_lower_node(_avl)))
+				return (_avl.);
 			}
 			
 			// Capacity

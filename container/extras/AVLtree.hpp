@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:45:56 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 16:46:12 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 22:43:26 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,19 @@ namespace ft
 	** where the difference between heights of left and right subtrees cannot be more than one for all nodes. 
 	*/
 
-	class Node
-	{
-		public:
-			int	key;
-			int	value;
-			Node	*left;
-			Node	*right;
-			int	height;
-	};
-
 	class avl_tree
 	{
+
+		class Node
+		{
+			public:
+				int	key;
+				int	value;
+				Node	*left;
+				Node	*right;
+				int	height;
+		};
+
 		public:
 			/*
 			** Get maximum of two integers
@@ -168,7 +169,6 @@ namespace ft
 				}
 			}
 
-		private:
 
 		//	Node *get_first_node(avl_tree avl)
 		//	{return (a)}

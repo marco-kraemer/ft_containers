@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 15:26:12 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:18:30 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ using namespace ft;
 
 int main ()
 {
-	ft::map<int, int> first;
+	ft::map<int, int>
 
 	first[1] = 1;
 	

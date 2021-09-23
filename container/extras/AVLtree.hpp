@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:45:56 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 14:33:44 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:46:12 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ namespace ft
 	class Node
 	{
 		public:
-			int key;
-			Node *left;
-			Node *right;
-			int height;
+			int	key;
+			int	value;
+			Node	*left;
+			Node	*right;
+			int	height;
 	};
 
 	class avl_tree
@@ -58,12 +59,13 @@ namespace ft
 			/*
 			**  Alloc new node with the given key
 			*/
-			Node *newNode(int key)
+			Node *newNode(int key, int value)
 			{
 				Node *node = new Node();
 				node->key = key;
 				node->left = NULL;
 				node->right = NULL;
+				node->value = value;
 				node->height = 1;
 				return (node);
 			}
@@ -116,15 +118,15 @@ namespace ft
 			** Recursive function to insert an element
 			** and balance the tree, if necessary
 			*/
-			Node *insert(Node *node, int key)
+			Node *insert(Node *node, int key, int value)
 			{
 				if (node == NULL)
-					return (newNode(key));
+					return (newNode(key, value));
 
 				if (key < node->key)
-					node->left = insert(node->left, key);
+					node->left = insert(node->left, key, value);
 				else if (key > node->key)
-					node->right = insert(node->right, key);
+					node->right = insert(node->right, key, value);
 				else
 					return (node);
 				
@@ -165,6 +167,12 @@ namespace ft
 					preOrder(root->right);
 				}
 			}
+
+		private:
+
+		//	Node *get_first_node(avl_tree avl)
+		//	{return (a)}
+
 
 	};
 }

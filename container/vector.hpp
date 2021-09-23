@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 15:30:33 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:20:20 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,19 @@ namespace ft
 	{	
 		public:
 			typedef T					value_type;
+		
 			typedef Alloc					allocator_type;
+		
 			typedef T*					pointer;
+		
 			typedef T&					reference;
+		
 			typedef const T&				const_reference;
+		
 			typedef typename allocator_type::size_type	size_type;
+		
 			typedef random_access_iterator<T>		iterator;
+		
 			typedef const random_access_iterator<T>		const_iterator;
 
 			// Constructors

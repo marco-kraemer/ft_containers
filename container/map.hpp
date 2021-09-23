@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 15:44:01 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/09/22 16:24:16 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,10 @@ namespace ft
 			
 			typedef typename allocator_type::const_pointer		const_pointer;
 			
+			typedef random_access_iterator<T>			iterator;
+		
+			typedef const random_access_iterator<T>			const_iterator;
+
 			typedef size_t						size_type;
 		
 			// Constructors / Destructors
@@ -159,6 +163,7 @@ namespace ft
 				const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
 				_alloc(alloc),
 //				_comp(comp),
+				_value(x._value)
 				_avl()
 			{}
 			
@@ -168,6 +173,7 @@ namespace ft
 			*/
 			map (const map& x) :
 				_alloc(x._alloc),
+				_value(x._value)
 				_avl()
 			{}
 
@@ -189,7 +195,15 @@ namespace ft
 			}
 
 			// Iterators
-
+			
+			/*
+			** Returns an iterator referring to the first element in the map container.
+			*/
+			iterator begin()
+			{
+				return (iterator(_avl.get_lower_node(_avl)))
+			}
+			
 			// Capacity
 
 			// Element Access
@@ -200,9 +214,7 @@ namespace ft
 			** the function inserts a new element with that key and returns a reference to its mapped value
 			*/
 			mapped_type& operator[] (const key_type& k)
-			{
-				iterator
-			}
+			{}
 
 			// Modifiers
 
@@ -215,6 +227,7 @@ namespace ft
 		private:
 			avl_tree		_avl;
 			allocator_type		_alloc;
+			value_type		_value;
 	};
 }
 

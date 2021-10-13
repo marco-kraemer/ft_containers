@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:37:20 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/13 17:37:06 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/13 19:16:39 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ namespace ft
                 return (false);
             }
     };
+
+    template <class T1, class T2>
+        ft::pair<T1,T2> make_pair(T1 x, T2 y)
+        {
+            return (ft::pair<T1, T2>(x, y));
+        };
 }
 
 #endif

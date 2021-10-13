@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   BST_tree.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/13 17:14:42 by maraurel         ###   ########.fr       */
+/*   Created: 2021/10/13 17:26:10 by maraurel          #+#    #+#             */
+/*   Updated: 2021/10/13 17:37:26 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../container/extras/extras.hpp"
-#include <map>
-#include <iostream>
+#ifndef BST_TREE_HPP
+#define BST_TREE_HPP
 
-using namespace ft;
+#include "./extras.hpp"
 
-int main ()
+namespace ft
 {
-  map<char,int> mymap;
-
-  mymap['b'] = 100;
-  mymap['a'] = 200;
-  mymap['c'] = 300;
-
-  // show content:
-  for (map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-    std::cout << it->first << " => " << it->second << '\n';
-
-  return 0;
+	template <class T, class Compare = ft::less<T>, class Node = ft::BST_Node<T>,
+		class Type_Alloc = std::allocator<T>, class Node_Alloc = std::allocator<Node> >
+	class bst
+	{
+	};
 }
+
+#endif

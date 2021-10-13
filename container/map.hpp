@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/09/22 23:35:56 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/13 17:18:34 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,11 +198,27 @@ namespace ft
 			/*
 			** Returns an iterator referring to the first element in the map container.
 			*/
-//			iterator begin()
-//			{
-//				return ();
-//			}
-			
+			iterator begin()
+			{return (iterator(this->_tree.begin()));}
+
+			/*
+			** Returns a const iterator referring to the first element in the map container.
+			*/			
+			const_iterator begin() const
+			{return (const_iterator(this->_tree.begin()));}
+
+			/*
+			** Returns an iterator referring to the past-the-end element in the map container.
+			*/
+			iterator end()
+			{return (iterator(this->_tree.end()));}
+
+			/*
+			** Returns a const iterator referring to the past-the-end element in the map container.
+			*/
+			const_iterator end() const
+			{return (const_iterator(this->_tree.end()));}
+
 			// Capacity
 
 			// Element Access

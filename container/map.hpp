@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/18 20:47:16 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/18 20:56:19 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,10 @@ namespace ft
 				node	tmp;
 			
 				tmp = this->_root;
+				if (!tmp->left && !tmp->right)
+					return (end());
+				if (!tmp->left && tmp->right)
+					tmp = tmp->right;
 				while (tmp->left)
 					tmp = tmp->left;
 				return (iterator(tmp));			
@@ -269,6 +273,10 @@ namespace ft
 				node	tmp;
 			
 				tmp = this->_root;
+				if (!tmp->left && !tmp->right)
+					return (end());
+				if (!tmp->left && tmp->right)
+					tmp = tmp->right;
 				while (tmp->left)
 					tmp = tmp->left;
 				return (const_iterator(tmp));	
@@ -348,6 +356,11 @@ namespace ft
 			template <class InputIterator>
 				void insert (InputIterator first, InputIterator last)
 			{
+				while (first != last)
+				{
+					insert(*first);
+					++first;
+				}
 			}
 			
 			/*

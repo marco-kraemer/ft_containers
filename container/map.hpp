@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/18 20:11:02 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/18 20:47:16 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ namespace ft
 			}
 	
 			/*
-			** Returns a cosnt iterator referring to the first element in the map container.
+			** Returns a const iterator referring to the first element in the map container.
 			** Because map containers keep their elements ordered at all times,
 			** begin points to the element that goes first following the container's sorting criterion.
 			** If the container is empty, the returned iterator value shall not be dereferenced.
@@ -288,6 +288,13 @@ namespace ft
 
 			/* Capacity */
 
+			/*
+			** Returns whether the map container is empty.
+			** This function does not modify the container in any way.
+			*/
+			bool empty() const
+			{return (this->_length == 0);}
+
 			/* Element access */
 
 			/*
@@ -306,8 +313,16 @@ namespace ft
 			** effectively increasing the container size by the number of elements inserted.
 			** Single element case
 			*/
-			pair<iterator,bool> insert (const value_type& val)
-			{}
+			std::pair<iterator,bool> insert (const value_type& val)
+			{
+				iterator	tmp;
+
+				tmp = find(val.first);
+				if (tmp != end())
+					return (std::make_pair(tmp, false));
+				this->_length += 1;
+				return (std::make_pair(iterator(_insert_node(this->_root, val.first, val.second)), true));
+			}
 
 			/*
 			** Extends the container by inserting new elements,
@@ -315,7 +330,15 @@ namespace ft
 			** With hint case
 			*/
 			iterator insert (iterator position, const value_type& val)
-			{}
+			{
+				iterator	tmp;
+
+				tmp = find(val.first);
+				if (tmp != end())
+					return (tmp);
+				this->_length += 1;
+				return (iterator(_insert_node(position.node(), val.first, val.second)));
+			}
 
 			/*
 			** Extends the container by inserting new elements,
@@ -324,7 +347,8 @@ namespace ft
 			*/
 			template <class InputIterator>
 				void insert (InputIterator first, InputIterator last)
-			{}
+			{
+			}
 			
 			/*
 			** Removes all elements from the map container (which are destroyed),
@@ -335,7 +359,35 @@ namespace ft
 			/* Observers */
 
 			/* Operations */
+			
+			/*
+			** Searches the container for an element with a key equivalent to k and returns an iterator to it if found.
+			** Otherwise it returns an iterator to map::end.
+			*/
+			iterator find (const key_type& k)
+			{
+				node	tmp;
+			
+				tmp = _find(this->_root, k);
+				if (!(tmp) || empty())
+					return (end());
+				return (iterator(tmp));
+			}
 
+			/*
+			** Searches the container for an element with a key equivalent to k and returns an iterator to it if found.
+			** Otherwise it returns an iterator to map::end.
+			*/
+			const_iterator find (const key_type& k) const
+			{
+				node	tmp;
+			
+				tmp = _find(this->_root, k);
+				if (!(tmp) || empty())
+					return (end());
+				return (const_iterator(tmp));	
+			}
+			
 			/* Allocator */
 
 	};

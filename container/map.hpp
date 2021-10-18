@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/18 14:11:22 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/18 20:11:02 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ namespace ft
 			key_compare _comp;
 			node _root;
 			size_type _length;
+
 			void _debug_tree(node n)
 			{
 				if (!n)
@@ -64,16 +65,18 @@ namespace ft
 					std::cout << n->pair.first << "=" << n->pair.second << std::endl;
 				_debug_tree(n->right);
 			};
+
 			node _new_node(key_type key, mapped_type value, node parent, bool end = false)
 			{
-				node el = new BNode<key_type, mapped_type>();
-				el->pair = std::make_pair(key, value);
-				el->right = 0;
-				el->left = 0;
-				el->parent = parent;
-				el->end = end;
-				return (el);
+				node New = new BNode<key_type, mapped_type>();
+				New->pair = std::make_pair(key, value);
+				New->right = 0;
+				New->left = 0;
+				New->parent = parent;
+				New->end = end;
+				return (New);
 			};
+
 			void _free_tree(node n)
 			{
 				if (n->right)
@@ -82,6 +85,7 @@ namespace ft
 					_free_tree(n->left);
 				delete n;
 			};
+
 			node _insert_node(node n, key_type key, mapped_type value, bool end = false)
 			{
 				if (n->end)
@@ -114,6 +118,7 @@ namespace ft
 						return(_insert_node(n->right, key, value));
 				}
 			};
+
 			node _find(node n, key_type key) const
 			{
 				node tmp;
@@ -131,6 +136,7 @@ namespace ft
 				}
 				return (0);
 			};
+
 			void _delete_node(node n)
 			{
 				node parent = n->parent;
@@ -169,16 +175,19 @@ namespace ft
 				ft::swap(next->pair, n->pair);
 				_delete_node(next);
 			};
+
 			void _init_tree(void)
 			{
 				_root = _new_node(key_type(), mapped_type(), 0);
 				_root->right  = _new_node(key_type(), mapped_type(), _root, true);
 				_length = 0;
 			};
+
 			node _end(void) const
 			{
 				return (_root->right);
 			};
+
 		public:
 			/* Constructors and desctructor */
 
@@ -241,6 +250,12 @@ namespace ft
 			*/
 			iterator begin()
 			{
+				node	tmp;
+			
+				tmp = this->_root;
+				while (tmp->left)
+					tmp = tmp->left;
+				return (iterator(tmp));			
 			}
 	
 			/*
@@ -251,7 +266,25 @@ namespace ft
 			*/
 			const_iterator begin() const
 			{
+				node	tmp;
+			
+				tmp = this->_root;
+				while (tmp->left)
+					tmp = tmp->left;
+				return (const_iterator(tmp));	
 			}
+
+			/*
+			** Returns an iterator referring to the past-the-end element in the ma
+			*/
+			iterator end()
+			{return (iterator(this->_end()));}
+
+			/*
+			** Returns a const iterator referring to the past-the-end element in the ma
+			*/
+			const_iterator end() const
+			{return (const_iterator(this->_end()));}
 
 			/* Capacity */
 
@@ -262,12 +295,42 @@ namespace ft
 			** If k does not match the key of any element in the container, the function inserts a new element with that key and returns a reference to its mapped value.
 			** Notice that this always increases the container size by one
 			*/
-			mapped_type& operator[] (const key_type& k)
-			{
-
-			}
+//			mapped_type& operator[] (const key_type& k)
+//			{
+//			}
 
 			/* Modifiers */
+
+			/*
+			** Extends the container by inserting new elements,
+			** effectively increasing the container size by the number of elements inserted.
+			** Single element case
+			*/
+			pair<iterator,bool> insert (const value_type& val)
+			{}
+
+			/*
+			** Extends the container by inserting new elements,
+			** effectively increasing the container size by the number of elements inserted.
+			** With hint case
+			*/
+			iterator insert (iterator position, const value_type& val)
+			{}
+
+			/*
+			** Extends the container by inserting new elements,
+			** effectively increasing the container size by the number of elements inserted.
+			** Range case
+			*/
+			template <class InputIterator>
+				void insert (InputIterator first, InputIterator last)
+			{}
+			
+			/*
+			** Removes all elements from the map container (which are destroyed),
+			** leaving the container with a size of 0.
+			*/
+			void clear();
 
 			/* Observers */
 

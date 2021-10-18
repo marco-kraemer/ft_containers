@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/18 14:29:15 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/18 14:11:22 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,11 +180,22 @@ namespace ft
 				return (_root->right);
 			};
 		public:
+			/* Constructors and desctructor */
+
+			/*
+			** Constructs a map container object, initializing its contents depending on the constructor version used:
+			** Empty version
+			*/
 			explicit Map(const key_compare &comp = key_compare(), const allocator_type alloc = allocator_type())
 			: _allocator(alloc), _comp(comp)
 			{
 				_init_tree();
 			};
+
+			/*
+			** Constructs a map container object, initializing its contents depending on the constructor version used:
+			** Range version
+			*/
 			template <class InputIterator>
 			Map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type alloc = allocator_type())
 			: _allocator(alloc), _comp(comp)
@@ -192,242 +203,78 @@ namespace ft
 				_init_tree();
 				insert(first, last);
 			};
+
+			/*
+			** Constructs a map container object, initializing its contents depending on the constructor version used:
+			** Copy version
+			*/
 			Map(const Map<Key, T> &other)
 			{
 				_init_tree();
 				*this = other;
 			};
+
+			/*
+			** Destroys the container object.
+			*/
 			~Map(void)
 			{
 				_free_tree(_root);	
 			};
+
+			/*
+			** Assigns new contents to the container, replacing its current content.
+			*/
 			Map &operator=(const Map<Key, T> &other)
 			{
 				clear();
 				insert(other.begin(), other.end());
 				return (*this);
 			};
-			iterator begin(void)
-			{
-				node n = _root;
-				if (!n->left && !n->right)
-					return (end());
-				if (!n->left && n->right)
-					n = n->right;
-				while (n->left)
-					n = n->left;
-				return (iterator(n));
-			};
-			const_iterator begin(void) const
-			{
-				node n = _root;
-				if (!n->left && !n->right)
-					return (end());
-				if (!n->left && n->right)
-					n = n->right;
-				while (n->left)
-					n = n->left;
-				return (const_iterator(n));
-			};
-			iterator end(void)
-			{
-				return (iterator(_end()));
-			};
-			const_iterator end(void) const
-			{
-				return (const_iterator(_end()));
-			};
-			reverse_iterator rbegin(void)
-			{
-				iterator i = end();
-				i--;
-				return (reverse_iterator(i.node()));
-			};
-			const_reverse_iterator rbegin(void) const
-			{
-				iterator i = end();
-				i--;
-				return (const_reverse_iterator(i.node()));
-			};
-			reverse_iterator rend(void)
-			{
-				return (reverse_iterator(_root));
-			};
-			const_reverse_iterator rend(void) const
-			{
-				return (const_reverse_iterator(_root));
-			};
-			bool empty(void) const
-			{
-				return (_length == 0);
-			};
-			size_type size(void) const
-			{
-				return (_length);
-			};
-			size_type max_size(void) const
-			{
-				return (std::numeric_limits<size_type>::max() / (sizeof(ft::BNode<key_type, mapped_type>)));
-			};
-			mapped_type &operator[](const key_type& k)
-			{
-				iterator tmp = find(k);
-				if (tmp != end())
-				{
-					return tmp->second;
-				}
-				return (insert(std::make_pair(k, mapped_type())).first->second);
-			};
-			std::pair<iterator, bool> insert(const value_type &value)
-			{
-				iterator tmp;
-				if ((tmp = find(value.first)) != end())
-					return (std::make_pair(tmp, false));
-				++_length;
-				return (std::make_pair(iterator(_insert_node(_root, value.first, value.second)), true));
-			};
-			iterator insert(iterator position, const value_type &value)
-			{
-				iterator tmp;
-				if ((tmp = find(value.first)) != end())
-					return (tmp);
-				++_length;
-				return (iterator(_insert_node(position.node(), value.first, value.second)));
-			};
-			template <class InputIterator>
-			void insert(InputIterator first, InputIterator last)
-			{
-				while (first != last)
-				{
-					insert(*first);
-					++first;
-				}
-			};
-			void erase(iterator position)
-			{
-				_delete_node(position.node());
-				--_length;
-			};
-			size_type erase(const key_type &value)
-			{
-				int i = 0;
-				iterator item;
-				while ((item = find(value)) != end())
-				{
-					erase(item);
-					++i;
-				};
-				return (i);
-			};
-			void erase(iterator first, iterator last)
-			{
-				while (first != last)
-					erase(first++);
-			};
-			void swap(Map &x)
-			{
-				ft::swap(_length, x._length);
-				ft::swap(_root, x._root);
-			};
-			void clear(void)
-			{
-				erase(begin(), end());
-			};
-			key_compare key_comp(void) const
-			{
-				return (_comp);
-			};
-			value_compare value_comp(void) const
-			{
-				return (this->value_compare);
-			};
-			iterator find(const key_type &value)
-			{
-				if (empty())
-					return (end());
-				node tmp = _find(_root, value);
-				if (tmp)
-					return (iterator(tmp));
-				return (end());
-			};
-			const_iterator find(const key_type &value) const
-			{
-				if (empty())
-					return (end());
-				node tmp = _find(_root, value);
-				if (tmp)
-					return (const_iterator(tmp));
-				return (end());
-			};
-			size_type count(const key_type &value) const
-			{
-				size_t c = 0;
-				const_iterator it = begin();
 
-				while (it != end())
-				{
-					if (it->first == value)
-						++c;
-					++it;
-				}
-				return (c);
-			};
-			iterator lower_bound(const key_type &key)
+			/* Iterators */
+			/*
+			** Returns an iterator referring to the first element in the map container.
+			** Because map containers keep their elements ordered at all times,
+			** begin points to the element that goes first following the container's sorting criterion.
+			** If the container is empty, the returned iterator value shall not be dereferenced.
+			*/
+			iterator begin()
 			{
-				iterator it = begin();
-				while (it != end())
-				{
-					if (this->_comp(it->first, key) <= 0)
-						return (it);
-					++it;
-				}
-				return (end());
-			};
-			const_iterator lower_bound(const key_type &key) const
+			}
+	
+			/*
+			** Returns a cosnt iterator referring to the first element in the map container.
+			** Because map containers keep their elements ordered at all times,
+			** begin points to the element that goes first following the container's sorting criterion.
+			** If the container is empty, the returned iterator value shall not be dereferenced.
+			*/
+			const_iterator begin() const
 			{
-				const_iterator it = begin();
-				while (it != end())
-				{
-					if (this->_comp(it->first, key) <= 0)
-						return (it);
-					++it;
-				}
-				return (end());
-			};
-			iterator upper_bound(const key_type &key)
+			}
+
+			/* Capacity */
+
+			/* Element access */
+
+			/*
+			** If k matches the key of an element in the container, the function returns a reference to its mapped value.
+			** If k does not match the key of any element in the container, the function inserts a new element with that key and returns a reference to its mapped value.
+			** Notice that this always increases the container size by one
+			*/
+			mapped_type& operator[] (const key_type& k)
 			{
-				iterator it = begin();
-				while (it != end())
-				{
-					if (it->first != key && this->_comp(it->first, key) <= 0)
-						return (it);
-					++it;
-				};
-				return (end());
-			};
-			const_iterator upper_bound(const key_type &key) const
-			{
-				const_iterator it = begin();
-				while (it != end())
-				{
-					if (it->first != key && this->_comp(it->first, key) <= 0)
-						return (it);
-					++it;
-				};
-				return (end());
-			};
-			std::pair<const_iterator, const_iterator> equal_range(const key_type &k) const
-			{
-				return (std::pair<const_iterator, const_iterator>(this->lower_bound(k), this->upper_bound(k)));
-			};
-			std::pair<iterator, iterator> equal_range(const key_type &k)
-			{
-				return (std::pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k)));
-			};
-			// void debug(void)
-			// {
-			// 	_debug_tree(_root);
-			// };
+
+			}
+
+			/* Modifiers */
+
+			/* Observers */
+
+			/* Operations */
+
+			/* Allocator */
+
 	};
 	template <class Key, class T, class Compare, class Alloc>
 	void swap(ft::Map<Key, T, Compare, Alloc> &x, ft::Map<Key, T, Compare, Alloc> &y)

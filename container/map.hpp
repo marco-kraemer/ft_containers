@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/18 20:56:19 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/19 14:21:47 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 namespace ft
 {
 	template <class Key, class T, class Compare=std::less<Key>, class Alloc = std::allocator<std::pair<const Key, T> > >
-	class Map
+	class map
 	{
 		public:
 			typedef Key key_type;
@@ -195,7 +195,7 @@ namespace ft
 			** Constructs a map container object, initializing its contents depending on the constructor version used:
 			** Empty version
 			*/
-			explicit Map(const key_compare &comp = key_compare(), const allocator_type alloc = allocator_type())
+			explicit map(const key_compare &comp = key_compare(), const allocator_type alloc = allocator_type())
 			: _allocator(alloc), _comp(comp)
 			{
 				_init_tree();
@@ -206,7 +206,7 @@ namespace ft
 			** Range version
 			*/
 			template <class InputIterator>
-			Map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type alloc = allocator_type())
+			map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type alloc = allocator_type())
 			: _allocator(alloc), _comp(comp)
 			{
 				_init_tree();
@@ -217,7 +217,7 @@ namespace ft
 			** Constructs a map container object, initializing its contents depending on the constructor version used:
 			** Copy version
 			*/
-			Map(const Map<Key, T> &other)
+			map(const map<Key, T> &other)
 			{
 				_init_tree();
 				*this = other;
@@ -226,7 +226,7 @@ namespace ft
 			/*
 			** Destroys the container object.
 			*/
-			~Map(void)
+			~map(void)
 			{
 				_free_tree(_root);	
 			};
@@ -234,7 +234,7 @@ namespace ft
 			/*
 			** Assigns new contents to the container, replacing its current content.
 			*/
-			Map &operator=(const Map<Key, T> &other)
+			map &operator=(const map<Key, T> &other)
 			{
 				clear();
 				insert(other.begin(), other.end());
@@ -283,17 +283,63 @@ namespace ft
 			}
 
 			/*
-			** Returns an iterator referring to the past-the-end element in the ma
+			** Returns an iterator referring to the past-the-end element in the map container.
 			*/
 			iterator end()
 			{return (iterator(this->_end()));}
 
 			/*
-			** Returns a const iterator referring to the past-the-end element in the ma
+			** Returns a const iterator referring to the past-the-end element in the map container.
 			*/
 			const_iterator end() const
 			{return (const_iterator(this->_end()));}
 
+			/*
+			** Returns a reverse iterator pointing to the last element in the container.
+			*/
+			reverse_iterator rbegin()
+			{return (reverse_iterator(this->_end));}
+
+			/*
+			** Returns a const reverse iterator pointing to the last element in the container.
+			*/
+			const_reverse_iterator rbegin() const
+			{return (const_reverse_iterator(this->_end));}
+
+			/*
+			** Returns a reverse iterator pointing to the theoretical element right before the first element in the map container.
+			*/
+			reverse_iterator rend()
+			{
+				node	tmp;
+			
+				tmp = this->_root;
+				if (!tmp->left && !tmp->right)
+					return (end());
+				if (!tmp->left && tmp->right)
+					tmp = tmp->right;
+				while (tmp->left)
+					tmp = tmp->left;
+				return (reverse_iterator(tmp));	
+			}
+
+			/*
+			** Returns a const reverse iterator pointing to the theoretical element right before the first element in the map container.
+			*/
+			const_reverse_iterator rend() const
+			{
+				node	tmp;
+			
+				tmp = this->_root;
+				if (!tmp->left && !tmp->right)
+					return (end());
+				if (!tmp->left && tmp->right)
+					tmp = tmp->right;
+				while (tmp->left)
+					tmp = tmp->left;
+				return (const_reverse_iterator(tmp));	
+			}
+			
 			/* Capacity */
 
 			/*
@@ -310,9 +356,9 @@ namespace ft
 			** If k does not match the key of any element in the container, the function inserts a new element with that key and returns a reference to its mapped value.
 			** Notice that this always increases the container size by one
 			*/
-//			mapped_type& operator[] (const key_type& k)
-//			{
-//			}
+			mapped_type& operator[] (const key_type& k)
+			{
+			}
 
 			/* Modifiers */
 
@@ -405,17 +451,17 @@ namespace ft
 
 	};
 	template <class Key, class T, class Compare, class Alloc>
-	void swap(ft::Map<Key, T, Compare, Alloc> &x, ft::Map<Key, T, Compare, Alloc> &y)
+	void swap(ft::map<Key, T, Compare, Alloc> &x, ft::map<Key, T, Compare, Alloc> &y)
 	{
 		x.swap(y);
 	};
 	template <class Key, class T, class Compare, class Alloc>
-	bool operator==(const Map<Key, T, Compare, Alloc> &lhs, const Map<Key, T, Compare, Alloc> &rhs)
+	bool operator==(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		if (lhs.size() != rhs.size())
 			return (false);
-		typename ft::Map<Key, T, Compare, Alloc>::const_iterator it = rhs.begin();
-		typename ft::Map<Key, T, Compare, Alloc>::const_iterator it2 = lhs.begin();
+		typename ft::map<Key, T, Compare, Alloc>::const_iterator it = rhs.begin();
+		typename ft::map<Key, T, Compare, Alloc>::const_iterator it2 = lhs.begin();
 		while (it != rhs.end())
 		{
 			if (*it != *it2)
@@ -426,17 +472,17 @@ namespace ft
 		return (true);
 	};
 	template <class Key, class T, class Compare, class Alloc>
-	bool operator!=(const Map<Key, T, Compare, Alloc> &lhs, const Map<Key, T, Compare, Alloc> &rhs)
+	bool operator!=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		return (!(lhs == rhs));
 	};
 	template <class Key, class T, class Compare, class Alloc>
-	bool operator>(const Map<Key, T, Compare, Alloc> &lhs, const Map<Key, T, Compare, Alloc> &rhs)
+	bool operator>(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		if (lhs.size() > rhs.size())
 			return (true);
-		typename ft::Map<Key, T, Compare, Alloc>::const_iterator it = lhs.begin();
-		typename ft::Map<Key, T, Compare, Alloc>::const_iterator it2 = rhs.begin();
+		typename ft::map<Key, T, Compare, Alloc>::const_iterator it = lhs.begin();
+		typename ft::map<Key, T, Compare, Alloc>::const_iterator it2 = rhs.begin();
 		while (it != lhs.end() && it2 != rhs.end())
 		{
 			if (*it > *it2)
@@ -447,17 +493,17 @@ namespace ft
 		return (false);
 	};
 	template <class Key, class T, class Compare, class Alloc>
-	bool operator<(const Map<Key, T, Compare, Alloc> &lhs, const Map<Key, T, Compare, Alloc> &rhs)
+	bool operator<(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		return (!(lhs > rhs) && !(lhs == rhs));
 	};
 	template <class Key, class T, class Compare, class Alloc>
-	bool operator>=(const Map<Key, T, Compare, Alloc> &lhs, const Map<Key, T, Compare, Alloc> &rhs)
+	bool operator>=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		return (!(lhs < rhs));
 	};
 	template <class Key, class T, class Compare, class Alloc>
-	bool operator<=(const Map<Key, T, Compare, Alloc> &lhs, const Map<Key, T, Compare, Alloc> &rhs)
+	bool operator<=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		return (!(lhs > rhs));
 	};

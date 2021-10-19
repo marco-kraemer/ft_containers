@@ -6,12 +6,12 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 17:26:10 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/18 20:44:32 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/19 14:48:24 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BST_TREE_HPP
-#define BST_TREE_HPP
+#ifndef MAPITERATORS_HPP
+#define MAPITERATORS_HPP
 
 #include "./extras.hpp"
 

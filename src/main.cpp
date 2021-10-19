@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/19 14:10:09 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/19 14:46:31 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,15 @@ using namespace ft;
 
 int main ()
 {
-	map<char,int> mymap;
+	int i;
+	map<int,int> mymap;
 
-	mymap['x'] = 100;
-	mymap['y'] = 200;
-	mymap['z'] = 300;
-
-	// show content:
-	map<char,int>::reverse_iterator rit;
-	for (rit=mymap.rbegin(); rit!=mymap.rend(); ++rit)
-		std::cout << rit->first << " => " << rit->second << '\n';
+	if (mymap.max_size()>1000)
+	{
+	for (i=0; i<1000; i++) mymap[i]=0;
+	std::cout << "The map contains 1000 elements.\n";
+	}
+	else std::cout << "The map could not hold 1000 elements.\n";
 
 	return 0;
 }

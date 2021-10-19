@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/19 14:21:47 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/19 14:52:21 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,36 @@ namespace ft
 	class map
 	{
 		public:
-			typedef Key key_type;
-			typedef T mapped_type;
-			typedef std::pair<const key_type, mapped_type> value_type;
-			typedef Compare key_compare;
-			typedef Alloc allocator_type;
-			typedef T& reference;
-			typedef const T& const_reference;
-			typedef T* pointer;
-			typedef const T* const_pointer;
-			typedef unsigned long size_type;
-			typedef BNode<key_type, mapped_type>* node;
-			typedef MapIterator<key_type, mapped_type> iterator;
-			typedef ReverseMapIterator<key_type, mapped_type> reverse_iterator;
-			typedef ConstMapIterator<key_type, mapped_type> const_iterator;
-			typedef ConstReverseMapIterator<key_type, mapped_type> const_reverse_iterator;
+			typedef Key 						key_type;
+
+			typedef T						mapped_type;
+
+			typedef std::pair<const key_type, mapped_type>		value_type;
+
+			typedef Compare						key_compare;
+
+			typedef Alloc						allocator_type;
+
+			typedef T&						reference;
+
+			typedef const T&					const_reference;
+
+			typedef T*						pointer;
+
+			typedef const T*					const_pointer;
+
+			typedef size_t						size_type;
+
+			typedef BNode<key_type, mapped_type>*			node;
+
+			typedef MapIterator<key_type, mapped_type>		iterator;
+
+			typedef ReverseMapIterator<key_type, mapped_type>	reverse_iterator;
+
+			typedef ConstMapIterator<key_type, mapped_type>		const_iterator;
+
+			typedef ConstReverseMapIterator<key_type, mapped_type>	const_reverse_iterator;
+
 			class value_compare
 			{
 				friend class map;
@@ -50,11 +65,15 @@ namespace ft
 						return comp(x.first, y.first);
 					};
 			};
+
 		private:
-			allocator_type _allocator;
-			key_compare _comp;
-			node _root;
-			size_type _length;
+			allocator_type	_allocator;
+
+			key_compare	_comp;
+
+			node		_root;
+
+			size_type	_length;
 
 			void _debug_tree(node n)
 			{
@@ -189,6 +208,7 @@ namespace ft
 			};
 
 		public:
+			
 			/* Constructors and desctructor */
 
 			/*
@@ -199,7 +219,7 @@ namespace ft
 			: _allocator(alloc), _comp(comp)
 			{
 				_init_tree();
-			};
+			}
 
 			/*
 			** Constructs a map container object, initializing its contents depending on the constructor version used:
@@ -211,7 +231,7 @@ namespace ft
 			{
 				_init_tree();
 				insert(first, last);
-			};
+			}
 
 			/*
 			** Constructs a map container object, initializing its contents depending on the constructor version used:
@@ -221,15 +241,13 @@ namespace ft
 			{
 				_init_tree();
 				*this = other;
-			};
+			}
 
 			/*
 			** Destroys the container object.
 			*/
 			~map(void)
-			{
-				_free_tree(_root);	
-			};
+			{_free_tree(_root);}
 
 			/*
 			** Assigns new contents to the container, replacing its current content.
@@ -239,7 +257,7 @@ namespace ft
 				clear();
 				insert(other.begin(), other.end());
 				return (*this);
-			};
+			}
 
 			/* Iterators */
 			/*
@@ -298,47 +316,35 @@ namespace ft
 			** Returns a reverse iterator pointing to the last element in the container.
 			*/
 			reverse_iterator rbegin()
-			{return (reverse_iterator(this->_end));}
+			{
+				reverse_iterator tmp = this->_end();
+			
+				tmp++;
+				return (tmp);
+			}
 
 			/*
 			** Returns a const reverse iterator pointing to the last element in the container.
 			*/
 			const_reverse_iterator rbegin() const
-			{return (const_reverse_iterator(this->_end));}
+			{
+				const_reverse_iterator tmp = this->_end();
+			
+				tmp++;
+				return (tmp);
+			}
 
 			/*
 			** Returns a reverse iterator pointing to the theoretical element right before the first element in the map container.
 			*/
 			reverse_iterator rend()
-			{
-				node	tmp;
-			
-				tmp = this->_root;
-				if (!tmp->left && !tmp->right)
-					return (end());
-				if (!tmp->left && tmp->right)
-					tmp = tmp->right;
-				while (tmp->left)
-					tmp = tmp->left;
-				return (reverse_iterator(tmp));	
-			}
+			{return (reverse_iterator(_root));}
 
 			/*
 			** Returns a const reverse iterator pointing to the theoretical element right before the first element in the map container.
 			*/
 			const_reverse_iterator rend() const
-			{
-				node	tmp;
-			
-				tmp = this->_root;
-				if (!tmp->left && !tmp->right)
-					return (end());
-				if (!tmp->left && tmp->right)
-					tmp = tmp->right;
-				while (tmp->left)
-					tmp = tmp->left;
-				return (const_reverse_iterator(tmp));	
-			}
+			{return (const_reverse_iterator(_root));}
 			
 			/* Capacity */
 
@@ -349,6 +355,18 @@ namespace ft
 			bool empty() const
 			{return (this->_length == 0);}
 
+			/*
+			** Returns the number of elements in the map container.
+			*/
+			size_type size() const
+			{return (this->_length);}
+
+			/*
+			** Returns the maximum number of elements that the map container can hold.
+			*/
+			size_type max_size() const
+			{return (allocator_type().max_size());}
+
 			/* Element access */
 
 			/*
@@ -358,6 +376,12 @@ namespace ft
 			*/
 			mapped_type& operator[] (const key_type& k)
 			{
+				iterator	tmp;
+			
+				tmp = find(k);
+				if (tmp != end())
+					return (tmp->second);
+				return (insert(std::make_pair(k, mapped_type())).first->second);
 			}
 
 			/* Modifiers */
@@ -410,10 +434,41 @@ namespace ft
 			}
 			
 			/*
+			** Removes from the map container either a single element or a range of elements ([first,last)).
+			** This effectively reduces the container size by the number of elements removed, which are destroyed.
+			*/
+			void erase (iterator position)
+			{}	
+
+			/*
+			** Removes from the map container either a single element or a range of elements ([first,last)).
+			** This effectively reduces the container size by the number of elements removed, which are destroyed.
+			*/	
+			size_type erase (const key_type& k)		
+			{}
+				
+			/*
+			** Removes from the map container either a single element or a range of elements ([first,last)).
+			** This effectively reduces the container size by the number of elements removed, which are destroyed.
+			*/		
+			void erase (iterator first, iterator last)		
+			{}	
+			
+			/*
+			** Exchanges the content of the container by the content of x, which is another map of the same type. Sizes may differ.
+			** After the call to this member function, the elements in this container are those which were in x before the call,
+			** and the elements of x are those which were in this.
+			** All iterators, references and pointers remain valid for the swapped objects.
+			*/
+			void swap (map& x)
+			{}
+
+			/*
 			** Removes all elements from the map container (which are destroyed),
 			** leaving the container with a size of 0.
 			*/
-			void clear();
+			void clear()
+			{}
 
 			/* Observers */
 
@@ -450,11 +505,13 @@ namespace ft
 			/* Allocator */
 
 	};
+
 	template <class Key, class T, class Compare, class Alloc>
 	void swap(ft::map<Key, T, Compare, Alloc> &x, ft::map<Key, T, Compare, Alloc> &y)
 	{
 		x.swap(y);
 	};
+	
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator==(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
@@ -471,11 +528,13 @@ namespace ft
 		}
 		return (true);
 	};
+	
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator!=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		return (!(lhs == rhs));
 	};
+	
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator>(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
@@ -492,16 +551,19 @@ namespace ft
 		}
 		return (false);
 	};
+	
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator<(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		return (!(lhs > rhs) && !(lhs == rhs));
 	};
+	
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator>=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		return (!(lhs < rhs));
 	};
+	
 	template <class Key, class T, class Compare, class Alloc>
 	bool operator<=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{

@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/20 14:56:37 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/20 21:06:48 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -495,6 +495,20 @@ namespace ft
 			{erase(begin(), end());}
 
 			/* Observers */
+			
+			/*
+			** Returns a copy of the comparison object used by the container to compare keys.
+			** The comparison object of a map object is set on construction.
+			*/
+			key_compare key_comp() const
+			{return (this->_comp);}
+
+			/*
+			** Returns a comparison object that can be used to compare two elements to get whether the key of the first one goes before the second.
+			** The arguments taken by this function object are of member type value_type.
+			*/
+			value_compare value_comp() const
+			{return (this->value_comp);}
 
 			/* Operations */
 			
@@ -512,6 +526,7 @@ namespace ft
 				return (iterator(tmp));
 			}
 
+		
 			/*
 			** Searches the container for an element with a key equivalent to k and returns an iterator to it if found.
 			** Otherwise it returns an iterator to map::end.
@@ -524,6 +539,20 @@ namespace ft
 				if (!(tmp) || empty())
 					return (end());
 				return (const_iterator(tmp));	
+			}
+
+			/*
+			** Searches the container for elements with a key equivalent to k and returns the number of matches.
+			** Because all elements in a map container are unique, the function can only return 1 or 0.
+			*/
+			size_type count(const key_type& k)
+			{
+				iterator	tmp;
+				
+				tmp = find(k);
+				if (tmp == end())
+					return (0);
+				return (1);
 			}
 			
 			/* Allocator */

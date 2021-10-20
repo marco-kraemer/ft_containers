@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/19 14:52:21 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/20 14:56:37 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,8 @@ namespace ft
 
 		private:
 			allocator_type	_allocator;
-
 			key_compare	_comp;
-
 			node		_root;
-
 			size_type	_length;
 
 			void _debug_tree(node n)
@@ -159,6 +156,7 @@ namespace ft
 			void _delete_node(node n)
 			{
 				node parent = n->parent;
+
 				if (!n->left && !n->right)
 				{
 					if (parent->right == n)
@@ -438,21 +436,36 @@ namespace ft
 			** This effectively reduces the container size by the number of elements removed, which are destroyed.
 			*/
 			void erase (iterator position)
-			{}	
+			{
+				_delete_node(position.node());
+				this->_length--;
+			}
 
 			/*
 			** Removes from the map container either a single element or a range of elements ([first,last)).
 			** This effectively reduces the container size by the number of elements removed, which are destroyed.
 			*/	
 			size_type erase (const key_type& k)		
-			{}
+			{
+				iterator	tmp;
+
+				tmp = find(k);
+				if (tmp == end())
+					return (0);
+				_delete_node(tmp.node());
+				this->_length--;
+				return (1);				
+			}
 				
 			/*
 			** Removes from the map container either a single element or a range of elements ([first,last)).
 			** This effectively reduces the container size by the number of elements removed, which are destroyed.
 			*/		
 			void erase (iterator first, iterator last)		
-			{}	
+			{
+				while (first != last)
+					erase(first++);
+			}	
 			
 			/*
 			** Exchanges the content of the container by the content of x, which is another map of the same type. Sizes may differ.
@@ -461,14 +474,25 @@ namespace ft
 			** All iterators, references and pointers remain valid for the swapped objects.
 			*/
 			void swap (map& x)
-			{}
+			{
+				node		tmp;
+				size_t		tmp_length;
+
+				tmp_length	= x._length;
+				x._length	= this->_length;
+				this->_length	= tmp_length;
+
+				tmp		= x._root;
+				x._root		= this->_root;
+				this->_root	= tmp;
+			}
 
 			/*
 			** Removes all elements from the map container (which are destroyed),
 			** leaving the container with a size of 0.
 			*/
 			void clear()
-			{}
+			{erase(begin(), end());}
 
 			/* Observers */
 

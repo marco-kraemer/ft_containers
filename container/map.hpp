@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/21 14:34:32 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/21 14:35:15 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ namespace ft
 
 			typedef T						mapped_type;
 
-			typedef std::pair<const key_type, mapped_type>		value_type;
+			typedef pair<const key_type, mapped_type>		value_type;
 
 			typedef Compare						key_compare;
 
@@ -72,20 +72,10 @@ namespace ft
 			node		_root;
 			size_type	_length;
 
-			void _debug_tree(node n)
-			{
-				if (!n)
-					return;
-				_debug_tree(n->left);
-				if (n->parent && !n->end)
-					std::cout << n->pair.first << "=" << n->pair.second << std::endl;
-				_debug_tree(n->right);
-			};
-
 			node _new_node(key_type key, mapped_type value, node parent, bool end = false)
 			{
 				node New = new BNode<key_type, mapped_type>();
-				New->pair = std::make_pair(key, value);
+				New->pair = make_pair(key, value);
 				New->right = 0;
 				New->left = 0;
 				New->parent = parent;

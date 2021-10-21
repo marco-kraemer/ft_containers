@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/20 21:06:48 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/21 14:34:32 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "extras/extras.hpp"
 namespace ft
 {
-	template <class Key, class T, class Compare=std::less<Key>, class Alloc = std::allocator<std::pair<const Key, T> > >
+	template <class Key, class T, class Compare=less<Key>, class Alloc = std::allocator<pair<const Key, T> > >
 	class map
 	{
 		public:
@@ -554,6 +554,82 @@ namespace ft
 					return (0);
 				return (1);
 			}
+
+			/*
+			** Returns an iterator pointing to the first element in the container whose key is not considered to go before
+			*/
+			iterator lower_bound (const key_type& k)
+			{
+				iterator	tmp;
+			
+				tmp = begin();
+				while (tmp != end())
+				{
+					if (_comp(tmp->first, k) <= 0)
+						return (tmp);
+					tmp++;
+				}
+				return (tmp);
+			}
+
+			/*
+			** Returns a const iterator pointing to the first element in the container whose key is not considered to go before
+			*/
+			const_iterator lower_bound (const key_type& k) const
+			{
+				const_iterator	tmp;
+			
+				tmp = begin();
+				while (tmp != end())
+				{
+					if (_comp(tmp->first, k) <= 0)
+						return (tmp);
+					tmp++;
+				}
+				return (tmp);
+			}
+
+			/*
+			** Returns an iterator pointing to the first element in the container whose key is considered to go after k.
+			*/
+			iterator upper_bound (const key_type& k)
+			{
+				iterator tmp = find(k);
+				if (tmp == end())
+					return (tmp);
+				tmp++;
+				return (tmp);
+			}
+
+			/*
+			** Returns a const iterator pointing to the first element in the container whose key is considered to go after k.
+			*/
+			const_iterator upper_bound (const key_type& k) const
+			{
+				const_iterator tmp = find(k);
+				if (tmp == end())
+					return (tmp);
+				tmp++;
+				return (tmp);
+			}
+
+			/*
+			** Returns the bounds of a range that includes all the elements in the container which have a key equivalent to k.
+			** If no matches are found, the range returned has a length of zero,
+			** with both iterators pointing to the first element that has a key considered to go
+			** after k according to the container's internal comparison object (key_comp).
+			*/
+			pair<const_iterator, const_iterator> equal_range(const key_type &k) const
+			{return (pair<const_iterator, const_iterator>(this->lower_bound(k), this->upper_bound(k)));}
+
+			/*
+			** Returns the bounds of a range that includes all the elements in the container which have a key equivalent to k.
+			** If no matches are found, the range returned has a length of zero,
+			** with both iterators pointing to the first element that has a key considered to go
+			** after k according to the container's internal comparison object (key_comp).
+			*/
+			pair<iterator, iterator> equal_range(const key_type &k)
+			{return (pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k)));}
 			
 			/* Allocator */
 

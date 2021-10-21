@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/20 21:06:26 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/21 14:23:55 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,19 @@ using namespace ft;
 int main ()
 {
 	map<char,int> mymap;
-	char c;
 
-	mymap ['a']=101;
-	mymap ['c']=202;
-	mymap ['f']=303;
+	mymap['a']=10;
+	mymap['b']=20;
+	mymap['c']=30;
 
-	for (c='a'; c<'h'; c++)
-	{
-		std::cout << c;
-		if (mymap.count(c) > 0)
-			std::cout << " is an element of mymap.\n";
-		else 
-			std::cout << " is not an element of mymap.\n";
-	}
+	pair<map<char,int>::iterator, map<char,int>::iterator> ret;
+	ret = mymap.equal_range('b');
+
+	std::cout << "lower bound points to: ";
+	std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+	std::cout << "upper bound points to: ";
+	std::cout << ret.second->first << " => " << ret.second->second << '\n';
 
 	return 0;
 }

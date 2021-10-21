@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:37:20 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/18 14:18:52 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/21 15:16:31 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 # include "./MapIterators.hpp"
 # include "../vector.hpp"
 # include "../map.hpp"
+# include "../stack.hpp"
 
 #endif

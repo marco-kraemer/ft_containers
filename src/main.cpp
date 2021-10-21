@@ -6,32 +6,31 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/21 14:23:55 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/21 15:22:36 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <map>
 #include <utility>
+#include <stack>
 #include "../container/extras/extras.hpp"
 
 using namespace ft;
 
 int main ()
 {
-	map<char,int> mymap;
+	stack<int> mystack;
+	int sum (0);
 
-	mymap['a']=10;
-	mymap['b']=20;
-	mymap['c']=30;
+	for (int i=1;i<=10;i++) mystack.push(i);
 
-	pair<map<char,int>::iterator, map<char,int>::iterator> ret;
-	ret = mymap.equal_range('b');
+	while (!mystack.empty())
+	{
+	sum += mystack.top();
+	mystack.pop();
+	}
 
-	std::cout << "lower bound points to: ";
-	std::cout << ret.first->first << " => " << ret.first->second << '\n';
-
-	std::cout << "upper bound points to: ";
-	std::cout << ret.second->first << " => " << ret.second->second << '\n';
+	std::cout << "total: " << sum << '\n';
 
 	return 0;
 }

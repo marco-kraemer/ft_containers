@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 17:26:10 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/21 14:34:04 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/21 14:42:53 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,45 +60,31 @@ namespace ft
 
 	template <class T1,class T2>
 	pair<T1,T2> make_pair (T1 x, T2 y)
-	{
-		return ( pair<T1,T2>(x,y) );
-	}
+	{return (pair<T1,T2>(x,y));}
 
 	template <class T1, class T2>
 	bool operator==(const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return (lhs.first == rhs.first && lhs.second == rhs.second);
-	}
+	{return (lhs.first == rhs.first && lhs.second == rhs.second);}
 
 	template <class T1, class T2>
 	bool operator!=(const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return (lhs.first != rhs.first && lhs.second != rhs.second);
-	}
+	{return (lhs.first != rhs.first && lhs.second != rhs.second);}
 
 	template <class T1, class T2>
 	bool operator<(const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return (lhs.first < rhs.first && lhs.second < rhs.second);
-	}
+	{return (lhs.first < rhs.first && lhs.second < rhs.second);}
 
 	template <class T1, class T2>
 	bool operator<=(const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return (lhs.first <= rhs.first && lhs.second <= rhs.second);
-	}
+	{return (lhs.first <= rhs.first && lhs.second <= rhs.second);}
 
 	template <class T1, class T2>
 	bool operator>(const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return (lhs.first > rhs.first && lhs.second > rhs.second);
-	}
+	{return (lhs.first > rhs.first && lhs.second > rhs.second);}
 
 	template <class T1, class T2>
 	bool operator>=(const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return (lhs.first >= rhs.first && lhs.second >= rhs.second);
-	};
+	{return (lhs.first >= rhs.first && lhs.second >= rhs.second);};
 };
 
 namespace ft
@@ -110,6 +96,7 @@ namespace ft
 		a = b;
 		b = tmp;
 	};
+	
 	template <class T>
 	struct Node
 	{
@@ -117,10 +104,11 @@ namespace ft
 		Node *prev;
 		Node *next;
 	};
+
 	template <class Key, class T>
 	struct BNode
 	{
-		std::pair<Key, T> pair;
+		pair<Key, T> pair;
 		BNode *left;
 		BNode *right;
 		BNode *parent;
@@ -134,8 +122,8 @@ namespace ft
 	class MapIterator
 	{
 		public:
-			typedef std::pair<K, T> value_type;
-			typedef std::pair<K, T>& reference;
+			typedef pair<K, T> value_type;
+			typedef pair<K, T>& reference;
 			typedef BNode<K, T>* pointer;
 		protected:
 			pointer _ptr;
@@ -256,8 +244,8 @@ namespace ft
 	class ConstMapIterator
 	{
 		public:
-			typedef std::pair<K, T> value_type;
-			typedef std::pair<K, T>& reference;
+			typedef pair<K, T> value_type;
+			typedef pair<K, T>& reference;
 			typedef BNode<K, T>* pointer;
 		protected:
 			pointer _ptr;
@@ -378,8 +366,8 @@ namespace ft
 	class ReverseMapIterator
 	{
 		public:
-			typedef std::pair<K, T> value_type;
-			typedef std::pair<K, T>& reference;
+			typedef pair<K, T> value_type;
+			typedef pair<K, T>& reference;
 			typedef BNode<K, T>* pointer;
 		protected:
 			pointer _ptr;
@@ -500,8 +488,8 @@ namespace ft
 	class ConstReverseMapIterator
 	{
 		public:
-			typedef std::pair<K, T> value_type;
-			typedef std::pair<K, T>& reference;
+			typedef pair<K, T> value_type;
+			typedef pair<K, T>& reference;
 			typedef BNode<K, T>* pointer;
 		protected:
 			pointer _ptr;

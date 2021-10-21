@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/21 14:35:15 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/21 14:36:05 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,7 +369,7 @@ namespace ft
 				tmp = find(k);
 				if (tmp != end())
 					return (tmp->second);
-				return (insert(std::make_pair(k, mapped_type())).first->second);
+				return (insert(make_pair(k, mapped_type())).first->second);
 			}
 
 			/* Modifiers */
@@ -379,15 +379,15 @@ namespace ft
 			** effectively increasing the container size by the number of elements inserted.
 			** Single element case
 			*/
-			std::pair<iterator,bool> insert (const value_type& val)
+			pair<iterator,bool> insert (const value_type& val)
 			{
 				iterator	tmp;
 
 				tmp = find(val.first);
 				if (tmp != end())
-					return (std::make_pair(tmp, false));
+					return (make_pair(tmp, false));
 				this->_length += 1;
-				return (std::make_pair(iterator(_insert_node(this->_root, val.first, val.second)), true));
+				return (make_pair(iterator(_insert_node(this->_root, val.first, val.second)), true));
 			}
 
 			/*

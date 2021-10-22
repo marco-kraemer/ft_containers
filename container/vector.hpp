@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/22 13:20:01 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/22 19:33:39 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,24 @@ namespace ft
 			** Constructs a container with as many elements as the range [first,last),
 			** with each element constructed from its corresponding element in that range, in the same order.
 			*/
+			template<class InputIterator>
+			int distance (InputIterator first, InputIterator last)
+			{
+				iterator rtn = 0;
+				while (first != last)
+				{
+				first++;
+				rtn++;
+				}
+				return (rtn);
+			}
+
 			template <class InputIterator>
 			vector (InputIterator first, InputIterator last,
 				const allocator_type& alloc = allocator_type()) :
 				_alloc(alloc)
 			{
-				int	range = 0;
-
-				while (first != last)
-				{
-					first++;
-					range++;
-				}
-				_first = _alloc.allocate(range);		
-				_capacity = _first + range;
-				_last = _first;
-				while (range--)
-				{
-					_alloc.construct(_last, *first++);
-					_last++;
-				}
+				insert(begin(), first, last);
 			}
 
 			/*
@@ -497,61 +495,15 @@ namespace ft
 			*/			
 			void insert (iterator position, size_type n, const value_type& val)
 			{
-				size_type len = &(*position) - _first;
-				size_type size = n;
-				
-				if (size_type(_capacity - _last) >= n)
+				size_t i = 0;
+
+				while (i < n)
 				{
-					for (size_type i = 0; i < this->size() - len; i++)
-						_alloc.construct(_last - i + (n - 1), *(_last - i - 1));
-					_last += n;
-					while (n)
-					{
-						_alloc.construct(&(*position) + (n - 1), val);
-						n--;
-					}
+					position = insert(position, val);
+					position++;
+					i++;
 				}
-				else
-				{
-					int next_capacity;
-					if (this->size() * 2 > 0)
-						next_capacity = this->size() * 2;
-					else
-						next_capacity = 1;
-				
-					pointer new_first = pointer();
-					pointer new_last = pointer();
-					pointer new_capacity = pointer();
-
-					new_first = _alloc.allocate(next_capacity);
-					new_capacity = new_first + next_capacity;
-
-					if (size_type(new_capacity - new_first) < this->size() + size)
-					{
-						if (new_first)
-							_alloc.deallocate(new_first, new_first - new_capacity);
-						new_first = _alloc.allocate(this->size() + size);
-						new_last = new_first + this->size() + size;
-						new_capacity = new_first + (this->size() + size);
-					}
-					
-					new_last = new_first + this->size() + size;
-					
-					for (int i = 0; i < &(*position) - _first; i++)
-						_alloc.construct(new_first + i, *(_first + i));
-					for (size_type j = 0; j < n; j++)
-						_alloc.construct(new_first + len + j, val);
-					for (size_type j = 0; j < (this->size() - len); j++)
-						_alloc.construct(new_last - j - 1, *(_last - j - 1));
-						
-					for (size_type l = 0; l < this->size(); l++)
-						_alloc.destroy(_first + l);
-					_alloc.deallocate(_first, this->capacity());
-
-					_first = new_first;
-					_last = new_last;
-					_capacity = new_capacity;
-				}
+				return;
 			}
 
 			/*

@@ -6,12 +6,12 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 15:01:36 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/21 15:22:28 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/22 13:41:07 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STACK_HPP
-#define STACK_HPP
+#ifndef stack_HPP
+#define stack_HPP
 
 # include "extras/extras.hpp"
 
@@ -61,7 +61,78 @@ namespace ft
 			*/
 			stack(const stack &other)
 			{*this = other;}
+
+			/*
+			** Returns whether the stack is empty: i.e. whether its size is zero.
+			** This member function effectively calls member empty of the underlying container object.
+			*/
+			bool empty() const
+			{return (this->_container.empty());}
+
+			/*
+			** Returns the number of elements in the stack.
+			** This member function effectively calls member size of the underlying container object.
+			*/
+			size_type size() const
+			{return (this->_container.size());}
+
+			/*
+			** Returns a reference to the top element in the stack.
+			** Since stacks are last-in first-out containers, the top element is the last element inserted into the stack.
+			** This member function effectively calls member back of the underlying container object.
+			*/
+			value_type& top()
+			{return (this->_container.back());}
+
+			/*
+			** Returns a const reference to the top element in the stack.
+			** Since stacks are last-in first-out containers, the top element is the last element inserted into the stack.
+			** This member function effectively calls member back of the underlying container object.
+			*/	
+			const value_type& top() const
+			{return (this->_container.back());}
+
+			/*
+			** Inserts a new element at the top of the stack, above its current top element.
+			** The content of this new element is initialized to a copy of val.
+			** This member function effectively calls the member function push_back of the underlying container object.
+			*/
+			void push (const value_type& val)
+			{return (this->_container.push_back(val));}
+
+			/*
+			** Removes the element on top of the stack, effectively reducing its size by one.
+			** The element removed is the latest element inserted into the stack,
+			** whose value can be retrieved by calling member stack::top.
+			** This member function effectively calls the member function pop_back of the underlying container object.
+			*/
+			void pop()
+			{return (this->_container.pop_back());}
+	
 	};
+	template <class T, class Container>
+	bool operator== (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{return (lhs._container == rhs._container);};
+	
+	template <class T, class Container>
+	bool operator!= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{return (lhs._container != rhs._container);};
+	
+	template <class T, class Container>
+	bool operator> (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{return (lhs._container > rhs._container);};
+
+	template <class T, class Container>
+	bool operator< (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{return (lhs._container < rhs._container);};
+
+	template <class T, class Container>
+	bool operator>= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{return (lhs._container >= rhs._container);};
+
+	template <class T, class Container>
+	bool operator<= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{return (lhs._container <= rhs._container);};
 }
 
 #endif

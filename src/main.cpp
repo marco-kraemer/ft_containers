@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/21 15:22:36 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/22 13:32:37 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int main ()
 
 	while (!mystack.empty())
 	{
-	sum += mystack.top();
-	mystack.pop();
+		sum += mystack.top();
+		mystack.pop();
 	}
 
 	std::cout << "total: " << sum << '\n';

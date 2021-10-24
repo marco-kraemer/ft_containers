@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/21 15:00:13 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/24 15:09:08 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ namespace ft
 			node _new_node(key_type key, mapped_type value, node parent, bool end = false)
 			{
 				node New = new BNode<key_type, mapped_type>();
-				New->pair = make_pair(key, value);
+				New->pair = ft::make_pair(key, value);
 				New->right = 0;
 				New->left = 0;
 				New->parent = parent;
@@ -369,7 +369,7 @@ namespace ft
 				tmp = find(k);
 				if (tmp != end())
 					return (tmp->second);
-				return (insert(make_pair(k, mapped_type())).first->second);
+				return (insert((value_type) ft::make_pair(k, mapped_type())).first->second);
 			}
 
 			/* Modifiers */
@@ -385,9 +385,9 @@ namespace ft
 
 				tmp = find(val.first);
 				if (tmp != end())
-					return (make_pair(tmp, false));
+					return (ft::make_pair(tmp, false));
 				this->_length += 1;
-				return (make_pair(iterator(_insert_node(this->_root, val.first, val.second)), true));
+				return (ft::make_pair(iterator(_insert_node(this->_root, val.first, val.second)), true));
 			}
 
 			/*

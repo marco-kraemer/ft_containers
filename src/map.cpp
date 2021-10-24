@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 14:45:12 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/24 14:53:05 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/24 15:13:26 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	map_empty()
 {
 	map<char,int> mymap;
 
-	mymap['a']=10;
-	mymap['b']=20;
-	mymap['c']=30;
+	mymap['a'] = 10;
+	mymap['b'] = 20;
+	mymap['c'] = 30;
 
 	while (!mymap.empty())
 	{
@@ -78,6 +78,78 @@ void	map_max_size()
 	else std::cout << "The map could not hold 1000 elements.\n";
 }
 
+void	map_operator(void)
+{
+	map<char,std::string> mymap;
+
+	mymap['a'] = "an element";
+	mymap['b'] = "another element";
+	mymap['c'] = mymap['b'];
+
+	std::cout << "mymap['a'] is " << mymap['a'] << '\n';
+	std::cout << "mymap['b'] is " << mymap['b'] << '\n';
+	std::cout << "mymap['c'] is " << mymap['c'] << '\n';
+	std::cout << "mymap['d'] is " << mymap['d'] << '\n';
+
+	std::cout << "mymap now contains " << mymap.size() << " elements.\n";
+}
+
+void	map_insert()
+{
+	map<char,int> mymap;
+
+	mymap.insert ( pair<char,int>('a',100) );
+	mymap.insert ( pair<char,int>('z',200) );
+
+	pair<map<char,int>::iterator,bool> ret;
+	ret = mymap.insert ( pair<char,int>('z',500) );
+	if (ret.second==false)
+	{
+		std::cout << "element 'z' already existed";
+		std::cout << " with a value of " << ret.first->second << '\n';
+	}
+
+	map<char,int>::iterator it = mymap.begin();
+	mymap.insert (it, pair<char,int>('b',300));
+	mymap.insert (it, pair<char,int>('c',400));
+
+	map<char,int> anothermap;
+	anothermap.insert(mymap.begin(),mymap.find('c'));
+
+	std::cout << "mymap contains:\n";
+	for (it = mymap.begin(); it != mymap.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+
+	std::cout << "anothermap contains:\n";
+	for (it = anothermap.begin(); it != anothermap.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+}
+
+void	map_erase()
+{
+	map<char,int> mymap;
+	map<char,int>::iterator it;
+
+	mymap['a']=10;
+	mymap['b']=20;
+	mymap['c']=30;
+	mymap['d']=40;
+	mymap['e']=50;
+	mymap['f']=60;
+
+	it = mymap.find('b');
+	mymap.erase (it);
+
+	mymap.erase ('c');
+
+	it = mymap.find ('e');
+	mymap.erase ( it, mymap.end() );
+
+	// show content:
+	for (it = mymap.begin(); it != mymap.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+}
+
 void	map_tests(void)
 {
 	std::cout << "\nMap test begin() and end() \n" << std::endl;
@@ -90,4 +162,10 @@ void	map_tests(void)
 	map_size();
 	std::cout << "\nMap test max_size()\n" << std::endl;
 	map_max_size();
+	std::cout << "\nMap test operator[]()\n" << std::endl;
+	map_operator();
+	std::cout << "\nMap test insert()\n" << std::endl;
+	map_insert();
+	std::cout << "\nMap test erase()\n" << std::endl;
+	map_erase();
 }

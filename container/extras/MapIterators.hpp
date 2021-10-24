@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 17:26:10 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/21 14:42:53 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/24 15:56:39 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ namespace ft
 			this->second = other.second;
 			return (*this);	
 		}
+
+		~pair()
+		{}
 	};
 
 	template <class T1,class T2>

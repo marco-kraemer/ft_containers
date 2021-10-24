@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/24 15:53:14 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/24 14:38:43 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,7 +413,7 @@ struct Buffer
 };
 
 template<typename T>
-class MutantStack : public ft::stack<T>
+class MutantStack : public stack<T>
 {
 	public:
 		MutantStack() {}
@@ -425,7 +425,7 @@ class MutantStack : public ft::stack<T>
 		}
 		~MutantStack() {}
 
-		typedef typename ft::stack<T>::container_type::iterator iterator;
+		typedef typename stack<T>::container_type::iterator iterator;
 
 		iterator begin() { return this->c.begin(); }
 		iterator end() { return this->c.end(); }
@@ -478,7 +478,7 @@ void	subject_tests(int argc, char** argv)
 	
 	for (int i = 0; i < COUNT; ++i)
 	{
-		map_int.insert(ft::make_pair(rand(), rand()));
+		map_int.insert(make_pair(rand(), rand()));
 	}
 
 	int sum = 0;
@@ -490,7 +490,7 @@ void	subject_tests(int argc, char** argv)
 	std::cout << "should be constant with the same seed: " << sum << std::endl;
 
 	{
-		ft::map<int, int> copy = map_int;
+		map<int, int> copy = map_int;
 	}
 	MutantStack<char> iterable_stack;
 	for (char letter = 'a'; letter <= 'z'; letter++)
@@ -505,5 +505,5 @@ void	subject_tests(int argc, char** argv)
 int	main(int argc, char **argv)
 {
 	subject_tests(argc, argv);
-//	vector_tests();
+	vector_tests();
 }

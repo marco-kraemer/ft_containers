@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 15:01:36 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/22 13:41:07 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/24 14:32:56 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 namespace ft
 {
-	template <class T, class Container = vector<T> >
+	template <class T, class Container = std::vector<T> >
 	class stack
 	{
 		public:
@@ -29,7 +29,7 @@ namespace ft
 
 
 		protected:
-			container_type	_container;
+			container_type	c;
 
 		public:
 			/* Constructors and desctructor */
@@ -37,7 +37,7 @@ namespace ft
 			/*
 			** Constructs a stack container adaptor object.
 			*/
-			explicit stack (const container_type& ctnr = container_type()) : _container(ctnr)
+			explicit stack (const container_type& ctnr = container_type()) : c(ctnr)
 			{}
 
 			/*
@@ -51,7 +51,7 @@ namespace ft
 			*/
 			stack &operator=(const stack &other)
 			{
-				this->_container = other._container;
+				this->c = other.c;
 				return (*this);
 			}
 
@@ -67,14 +67,14 @@ namespace ft
 			** This member function effectively calls member empty of the underlying container object.
 			*/
 			bool empty() const
-			{return (this->_container.empty());}
+			{return (this->c.empty());}
 
 			/*
 			** Returns the number of elements in the stack.
 			** This member function effectively calls member size of the underlying container object.
 			*/
 			size_type size() const
-			{return (this->_container.size());}
+			{return (this->c.size());}
 
 			/*
 			** Returns a reference to the top element in the stack.
@@ -82,7 +82,7 @@ namespace ft
 			** This member function effectively calls member back of the underlying container object.
 			*/
 			value_type& top()
-			{return (this->_container.back());}
+			{return (this->c.back());}
 
 			/*
 			** Returns a const reference to the top element in the stack.
@@ -90,7 +90,7 @@ namespace ft
 			** This member function effectively calls member back of the underlying container object.
 			*/	
 			const value_type& top() const
-			{return (this->_container.back());}
+			{return (this->c.back());}
 
 			/*
 			** Inserts a new element at the top of the stack, above its current top element.
@@ -98,7 +98,7 @@ namespace ft
 			** This member function effectively calls the member function push_back of the underlying container object.
 			*/
 			void push (const value_type& val)
-			{return (this->_container.push_back(val));}
+			{return (this->c.push_back(val));}
 
 			/*
 			** Removes the element on top of the stack, effectively reducing its size by one.
@@ -107,32 +107,32 @@ namespace ft
 			** This member function effectively calls the member function pop_back of the underlying container object.
 			*/
 			void pop()
-			{return (this->_container.pop_back());}
+			{return (this->c.pop_back());}
 	
 	};
 	template <class T, class Container>
 	bool operator== (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-	{return (lhs._container == rhs._container);};
+	{return (lhs.c == rhs.c);};
 	
 	template <class T, class Container>
 	bool operator!= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-	{return (lhs._container != rhs._container);};
+	{return (lhs.c != rhs.c);};
 	
 	template <class T, class Container>
 	bool operator> (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-	{return (lhs._container > rhs._container);};
+	{return (lhs.c > rhs.c);};
 
 	template <class T, class Container>
 	bool operator< (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-	{return (lhs._container < rhs._container);};
+	{return (lhs.c < rhs.c);};
 
 	template <class T, class Container>
 	bool operator>= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-	{return (lhs._container >= rhs._container);};
+	{return (lhs.c >= rhs.c);};
 
 	template <class T, class Container>
 	bool operator<= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-	{return (lhs._container <= rhs._container);};
+	{return (lhs.c <= rhs.c);};
 }
 
 #endif

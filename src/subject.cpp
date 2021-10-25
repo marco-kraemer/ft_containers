@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subject.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 14:43:28 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/24 14:44:34 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/25 14:34:24 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ class MutantStack : public stack<T>
 
 void	subject_tests(int argc, char** argv)
 {
+	std::cout << "\n------------------------------ SUBJECT DEFAULT TEST --------------------------------------------------" << std::endl;
 	if (argc != 2)
 	{
 		std::cerr << "Usage: ./test seed" << std::endl;

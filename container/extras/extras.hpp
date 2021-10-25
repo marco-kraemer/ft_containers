@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extras.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:37:20 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/24 14:44:52 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/25 14:23:11 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@
 
 void	vector_tests(void);
 void	map_tests(void);
+void	stack_tests(void);
 void	subject_tests(int argc, char** argv);
 #endif

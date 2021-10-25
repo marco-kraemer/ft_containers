@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 14:40:31 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/24 14:43:00 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/25 14:34:08 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,6 +347,7 @@ void	vec_get_allocator()
 
 void	vector_tests()
 {
+	std::cout << "\n------------------------------ TESTING VECTOR CONTAINER ----------------------------------------------" << std::endl;
 	std::cout << "\n\nVector test begin() and end() \n" << std::endl;
 	vec_begin_end();
 	std::cout << "\n\nVector test size() \n" << std::endl;

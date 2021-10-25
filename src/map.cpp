@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 14:45:12 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/24 15:13:26 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/25 14:33:29 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,7 @@ void	map_allocator()
 
 void	map_tests(void)
 {
+	std::cout << "\n------------------------------ TESTING MAP CONTAINER -------------------------------------------------" << std::endl;
 	std::cout << "\nMap test begin() and end() \n" << std::endl;
 	map_begin_end();
 	std::cout << "\nMap test rbegin() and rend() \n" << std::endl;

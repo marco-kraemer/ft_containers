@@ -622,6 +622,8 @@ namespace ft
 			{return (pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k)));}
 			
 			/* Allocator */
+			allocator_type get_allocator() const
+			{return (this->_allocator);}
 
 	};
 };

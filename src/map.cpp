@@ -150,6 +150,143 @@ void	map_erase()
 		std::cout << it->first << " => " << it->second << '\n';
 }
 
+void	map_swap()
+{
+	map<char,int> foo,bar;
+
+	foo['x']=100;
+	foo['y']=200;
+
+	bar['a']=11;
+	bar['b']=22;
+	bar['c']=33;
+
+	foo.swap(bar);
+
+	std::cout << "foo contains:\n";
+	for (map<char,int>::iterator it = foo.begin(); it != foo.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+
+	std::cout << "bar contains:\n";
+	for (map<char,int>::iterator it = bar.begin(); it != bar.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+}
+
+void	map_clear()
+{
+	map<char,int> mymap;
+
+	mymap['x']=100;
+	mymap['y']=200;
+	mymap['z']=300;
+
+	std::cout << "mymap contains:\n";
+	for (map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+
+	mymap.clear();
+	mymap['a']=1101;
+	mymap['b']=2202;
+
+	std::cout << "mymap contains:\n";
+	for (map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+}
+
+void	map_find()
+{
+	map<char,int> mymap;
+	map<char,int>::iterator it;
+
+	mymap['a']=50;
+	mymap['b']=100;
+	mymap['c']=150;
+	mymap['d']=200;
+
+	it = mymap.find('b');
+	if (it != mymap.end())
+		mymap.erase (it);
+
+	// print content:
+	std::cout << "elements in mymap:" << '\n';
+	std::cout << "a => " << mymap.find('a')->second << '\n';
+	std::cout << "c => " << mymap.find('c')->second << '\n';
+	std::cout << "d => " << mymap.find('d')->second << '\n';
+}
+
+void	map_count()
+{
+	map<char,int> mymap;
+	char c;
+
+	mymap ['a']=101;
+	mymap ['c']=202;
+	mymap ['f']=303;
+
+	for (c='a'; c<'h'; c++)
+	{
+		std::cout << c;
+		if (mymap.count(c)>0)
+			std::cout << " is an element of mymap.\n";
+		else 
+			std::cout << " is not an element of mymap.\n";
+	}
+}
+
+void	map_lower_upper()
+{
+	map<char,int> mymap;
+	map<char,int>::iterator itlow,itup;
+
+	mymap['a']=20;
+	mymap['b']=40;
+	mymap['c']=60;
+	mymap['d']=80;
+	mymap['e']=100;
+
+	itlow = mymap.lower_bound ('b');  // itlow points to b
+	itup = mymap.upper_bound ('d');   // itup points to e (not d!)
+
+	mymap.erase(itlow,itup);        // erases [itlow,itup)
+
+	// print content:
+	for (map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+}
+
+void	map_equal()
+{
+	map<char,int> mymap;
+
+	mymap['a']=10;
+	mymap['b']=20;
+	mymap['c']=30;
+
+	pair<map<char,int>::iterator, map<char,int>::iterator> ret;
+	ret = mymap.equal_range('b');
+
+	std::cout << "lower bound points to: ";
+	std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+	std::cout << "upper bound points to: ";
+	std::cout << ret.second->first << " => " << ret.second->second << '\n';
+}
+
+void	map_allocator()
+{
+	int psize;
+	map<char,int> mymap;
+	pair<const char,int>* p;
+
+	p=mymap.get_allocator().allocate(5);
+
+	psize = sizeof(std::map<char,int>::value_type)*5;
+
+	std::cout << "The allocated array has a size of " << psize << " bytes.\n";
+
+	mymap.get_allocator().deallocate(p,5);
+}
+
 void	map_tests(void)
 {
 	std::cout << "\nMap test begin() and end() \n" << std::endl;
@@ -168,4 +305,18 @@ void	map_tests(void)
 	map_insert();
 	std::cout << "\nMap test erase()\n" << std::endl;
 	map_erase();
+	std::cout << "\nMap test swap()\n" << std::endl;
+	map_swap();
+	std::cout << "\nMap test clear()\n" << std::endl;
+	map_clear();
+	std::cout << "\nMap test find()\n" << std::endl;
+	map_find();
+	std::cout << "\nMap test count()\n" << std::endl;
+	map_count();
+	std::cout << "\nMap test lower_bound() and upper_bound()\n" << std::endl;
+	map_lower_upper();
+	std::cout << "\nMap test equal_range()\n" << std::endl;
+	map_equal();
+	std::cout << "\nMap test get_allocator()\n" << std::endl;
+	map_allocator();
 }

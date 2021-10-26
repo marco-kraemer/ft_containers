@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   stack.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 15:01:36 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/24 14:32:56 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/26 14:49:25 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef stack_HPP
 #define stack_HPP
 
-# include "extras/extras.hpp"
+# include "extras/includes.hpp"
 
 namespace ft
 {

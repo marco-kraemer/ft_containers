@@ -6,11 +6,11 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 14:40:31 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/25 14:34:08 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:35:55 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../container/extras/extras.hpp"
+#include "includes.hpp"	
 
 using namespace ft;
 
@@ -345,11 +345,29 @@ void	vec_get_allocator()
 	myvector.get_allocator().deallocate(p,5);
 }
 
+void	vec_rbegin_rend()
+{
+	std::vector<int> myvector (5);  // 5 default-constructed ints
+
+	std::vector<int>::reverse_iterator rit = myvector.rbegin();
+
+	int i=0;
+	for (rit = myvector.rbegin(); rit!= myvector.rend(); ++rit)
+		*rit = ++i;
+
+	std::cout << "myvector contains:";
+	for (std::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+}
+
 void	vector_tests()
 {
 	std::cout << "\n------------------------------ TESTING VECTOR CONTAINER ----------------------------------------------" << std::endl;
 	std::cout << "\n\nVector test begin() and end() \n" << std::endl;
 	vec_begin_end();
+	std::cout << "\n\nVector test rbegin() and rend() \n" << std::endl;
+	vec_rbegin_rend();
 	std::cout << "\n\nVector test size() \n" << std::endl;
 	vec_size();
 	std::cout << "\n\nVector test max_size() \n" << std::endl;

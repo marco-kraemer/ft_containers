@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maraurel <maraurel@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/24 15:09:08 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:15:09 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ namespace ft
 
 			typedef ReverseMapIterator<key_type, mapped_type>	reverse_iterator;
 
-			typedef ConstMapIterator<key_type, mapped_type>		const_iterator;
+			typedef const MapIterator<key_type, mapped_type>	const_iterator;
 
-			typedef ConstReverseMapIterator<key_type, mapped_type>	const_reverse_iterator;
+			typedef const ReverseMapIterator<key_type, mapped_type>	const_reverse_iterator;
 
 			class value_compare
 			{
@@ -72,7 +72,7 @@ namespace ft
 			node		_root;
 			size_type	_length;
 
-			node _new_node(key_type key, mapped_type value, node parent, bool end = false)
+			node create_node(key_type key, mapped_type value, node parent, bool end = false)
 			{
 				node New = new BNode<key_type, mapped_type>();
 				New->pair = ft::make_pair(key, value);
@@ -83,67 +83,67 @@ namespace ft
 				return (New);
 			};
 
-			void _free_tree(node n)
+			void free_bst(node n)
 			{
 				if (n->right)
-					_free_tree(n->right);
+					free_bst(n->right);
 				if (n->left)
-					_free_tree(n->left);
+					free_bst(n->left);
 				delete n;
 			};
 
-			node _insert_node(node n, key_type key, mapped_type value, bool end = false)
+			node insert_node(node n, key_type key, mapped_type value, bool end = false)
 			{
 				if (n->end)
 				{
 					if (!n->left)
 					{
-						n->left = _new_node(key, value, n, end);
+						n->left = create_node(key, value, n, end);
 						return (n->left);
 					}
-					return (_insert_node(n->left, key, value));
+					return (insert_node(n->left, key, value));
 				}
 				if (key < n->pair.first && !end)
 				{
 					if (!n->left)
 					{
-						n->left = _new_node(key, value, n, end);
+						n->left = create_node(key, value, n, end);
 						return (n->left);
 					}
 					else
-						return (_insert_node(n->left, key, value));
+						return (insert_node(n->left, key, value));
 				}
 				else
 				{
 					if (!n->right)
 					{
-						n->right = _new_node(key, value, n, end);
+						n->right = create_node(key, value, n, end);
 						return (n->right);
 					}
 					else
-						return(_insert_node(n->right, key, value));
+						return(insert_node(n->right, key, value));
 				}
 			};
 
-			node _find(node n, key_type key) const
+			node find_node(node n, key_type key) const
 			{
 				node tmp;
 				if (!n->end && n->pair.first == key && n->parent)
 					return (n);
 				if (n->right)
 				{
-					if ((tmp = _find(n->right, key)))
+					if ((tmp = find_node(n->right, key)))
 						return (tmp);
 				}
 				if (n->left)
 				{
-					if ((tmp = _find(n->left, key)))
+					if ((tmp = find_node(n->left, key)))
 						return (tmp);
 				}
 				return (0);
 			};
 
-			void _delete_node(node n)
+			void delete_node(node n)
 			{
 				node parent = n->parent;
 
@@ -180,13 +180,13 @@ namespace ft
 				if (!next)
 					next = (--iterator(n)).node();
 				ft::swap(next->pair, n->pair);
-				_delete_node(next);
+				delete_node(next);
 			};
 
-			void _init_tree(void)
+			void create_bst(void)
 			{
-				_root = _new_node(key_type(), mapped_type(), 0);
-				_root->right  = _new_node(key_type(), mapped_type(), _root, true);
+				_root = create_node(key_type(), mapped_type(), 0);
+				_root->right  = create_node(key_type(), mapped_type(), _root, true);
 				_length = 0;
 			};
 
@@ -206,7 +206,7 @@ namespace ft
 			explicit map(const key_compare &comp = key_compare(), const allocator_type alloc = allocator_type())
 			: _allocator(alloc), _comp(comp)
 			{
-				_init_tree();
+				create_bst();
 			}
 
 			/*
@@ -217,7 +217,7 @@ namespace ft
 			map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type alloc = allocator_type())
 			: _allocator(alloc), _comp(comp)
 			{
-				_init_tree();
+				create_bst();
 				insert(first, last);
 			}
 
@@ -227,7 +227,7 @@ namespace ft
 			*/
 			map(const map<Key, T> &other)
 			{
-				_init_tree();
+				create_bst();
 				*this = other;
 			}
 
@@ -235,7 +235,7 @@ namespace ft
 			** Destroys the container object.
 			*/
 			~map(void)
-			{_free_tree(_root);}
+			{free_bst(_root);}
 
 			/*
 			** Assigns new contents to the container, replacing its current content.
@@ -387,7 +387,7 @@ namespace ft
 				if (tmp != end())
 					return (ft::make_pair(tmp, false));
 				this->_length += 1;
-				return (ft::make_pair(iterator(_insert_node(this->_root, val.first, val.second)), true));
+				return (ft::make_pair(iterator(insert_node(this->_root, val.first, val.second)), true));
 			}
 
 			/*
@@ -403,7 +403,7 @@ namespace ft
 				if (tmp != end())
 					return (tmp);
 				this->_length += 1;
-				return (iterator(_insert_node(position.node(), val.first, val.second)));
+				return (iterator(insert_node(position.node(), val.first, val.second)));
 			}
 
 			/*
@@ -427,7 +427,7 @@ namespace ft
 			*/
 			void erase (iterator position)
 			{
-				_delete_node(position.node());
+				delete_node(position.node());
 				this->_length--;
 			}
 
@@ -442,7 +442,7 @@ namespace ft
 				tmp = find(k);
 				if (tmp == end())
 					return (0);
-				_delete_node(tmp.node());
+				delete_node(tmp.node());
 				this->_length--;
 				return (1);				
 			}
@@ -510,7 +510,7 @@ namespace ft
 			{
 				node	tmp;
 			
-				tmp = _find(this->_root, k);
+				tmp = find_node(this->_root, k);
 				if (!(tmp) || empty())
 					return (end());
 				return (iterator(tmp));
@@ -525,7 +525,7 @@ namespace ft
 			{
 				node	tmp;
 			
-				tmp = _find(this->_root, k);
+				tmp = find_node(this->_root, k);
 				if (!(tmp) || empty())
 					return (end());
 				return (const_iterator(tmp));	

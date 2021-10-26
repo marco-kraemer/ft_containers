@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/23 14:50:06 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:53:12 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,14 @@ namespace ft
 		
 			typedef typename allocator_type::size_type	size_type;
 		
-			typedef random_access_iterator<T>		iterator;
+			typedef VectorIterator<T>			iterator;
 		
-			typedef const random_access_iterator<T>		const_iterator;
+			typedef const VectorIterator<T>			const_iterator;
+
+			typedef ReverseVectorIterator<T>		reverse_iterator;
+
+			typedef const ReverseVectorIterator<T>		const_reverse_iterator;
+
 
 			// Constructors
 
@@ -173,11 +178,48 @@ namespace ft
 			** Returns an iterator referring to the past-the-end element in the vector container.
 			** If the container is empty, this function returns the same as vector::begin.
 			*/
-			const iterator end() const
+			const_iterator end() const
 			{
 				if (this->empty())
 					return (this->begin());
 				return (this->_last);
+			}
+
+
+			/*
+			** Returns a reverse iterator pointing to the first element in the vector.
+			** If the container is empty, the returned reverse iterator value shall not be dereferenced.
+			*/
+			reverse_iterator rbegin()
+			{return (this->_last);}
+
+			/*
+			** Returns a reverse iterator pointing to the first element in the vector.
+			** If the container is empty, the returned reverse iterator value shall not be dereferenced.
+			*/
+			const_reverse_iterator rbegin() const
+			{return (this->_last);}
+
+			/*
+			** Returns a reverse iterator referring to the past-the-end element in the vector container.
+			** If the container is empty, this function returns the same as vector::begin.
+			*/
+			reverse_iterator rend()
+			{
+				if (this->empty())
+					return (this->begin());
+				return (this->_first);
+			}
+
+			/*
+			** Returns a reverse iterator referring to the past-the-end element in the vector container.
+			** If the container is empty, this function returns the same as vector::begin.
+			*/
+			const_reverse_iterator rend() const
+			{
+				if (this->empty())
+					return (this->begin());
+				return (this->_first);
 			}
 
 			// Capacity
@@ -432,10 +474,6 @@ namespace ft
 			** The vector is extended by inserting new elements before the element at the specified position,
 			** effectively increasing the container size by the number of elements inserted.
 			** This causes an automatic reallocation of the allocated storage.
-			**
-			** @param position The position where insert.
-			** @param val The element to insert.
-			** @return An iterator to the new element in the container.
 			*/		
 			iterator insert (iterator position, const value_type& val)
 			{
@@ -488,10 +526,6 @@ namespace ft
 			** The vector is extended by inserting new elements before the element at the specified position,
 			** effectively increasing the container size by the number of elements inserted.
 			** This causes an automatic reallocation of the allocated storage.
-			**
-			** @param The position where insert.
-			** @param n amount elements to insert.
-			** @param val The element to insert.
 			*/			
 			void insert (iterator position, size_type n, const value_type& val)
 			{
@@ -556,10 +590,6 @@ namespace ft
 			** The vector is extended by inserting new elements before the element at the specified position,
 			** effectively increasing the container size by the number of elements inserted.
 			** This causes an automatic reallocation of the allocated storage.
-			**
-			** @param Position in the vector where the new elements are inserted.
-			** @param Iterators specifying a range of elements (first)
-			** @param Iterators specifying a range of elements (last)
 			*/
 			template <class InputIterator>
 				void insert (iterator position, InputIterator first, InputIterator last)
@@ -699,6 +729,82 @@ namespace ft
 			pointer		_capacity;
 			allocator_type	_alloc;
 	};
+	
+	/*
+	** The contents of container x are exchanged with those of y.
+	** Both container objects must be of the same type (same template parameters), although sizes may differ.
+	*/
+	template <class T, class Alloc>
+		void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+	{x.swap(y);}
+
+	/*
+	** Performs the appropriate comparison operation between the vector containers lhs and rhs.
+	*/
+	template <class T, class Alloc>
+		bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		int	i;
+
+		if (lhs.size() != rhs.size())
+			return (false);
+		i = 0;
+		while (i < lhs.size())
+		{
+			if (rhs[i] != lhs[i])
+				return (false);
+			i++;
+		}
+		return (true);
+	}
+
+	/*
+	** Performs the appropriate comparison operation between the vector containers lhs and rhs.
+	*/
+	template <class T, class Alloc>
+	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		int	i;
+
+		if (lhs.size() != rhs.size())
+			return (true);
+		i = 0;
+		while (i < lhs.size())
+		{
+			if (rhs[i] != lhs[i])
+				return (true);
+			i++;
+		}
+		return (false);	
+	}
+
+	/*
+	** Performs the appropriate comparison operation between the vector containers lhs and rhs.
+	*/
+	template <class T, class Alloc>
+	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));}
+
+	/*
+	** Performs the appropriate comparison operation between the vector containers lhs and rhs.
+	*/
+	template <class T, class Alloc>
+	bool operator<=  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{return (!(rhs < lhs));}
+
+	/*
+	** Performs the appropriate comparison operation between the vector containers lhs and rhs.
+	*/
+	template <class T, class Alloc>
+	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{return (rhs < lhs);}
+
+	/*
+	** Performs the appropriate comparison operation between the vector containers lhs and rhs.
+	*/
+	template <class T, class Alloc>
+	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{return (!(lhs < rhs));}
 }
 
 #endif

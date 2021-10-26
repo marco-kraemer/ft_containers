@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:37:20 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/25 14:23:11 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:53:36 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,11 @@
 #define EXTRAS_HPP
 
 # include <iostream>
-# include <memory>
-# include <functional>
-# include <limits>
-# include <utility>
-# include <map>
-# include <stack>
-# include <vector>
-# include <iterator>
-# include <ctime>
-# include <iomanip>
-# include <unistd.h>
-# include <signal.h>
-# include <sys/time.h>
-#include <string>
-#include <deque>
-#include <stdlib.h>
 
-# include "./random_access_iterator.hpp"
-# include "./MapIterators.hpp"
+# include "./vectorIterator.hpp"
+# include "./mapIterators.hpp"
 # include "../vector.hpp"
 # include "../map.hpp"
 # include "../stack.hpp"
 
-void	vector_tests(void);
-void	map_tests(void);
-void	stack_tests(void);
-void	subject_tests(int argc, char** argv);
 #endif

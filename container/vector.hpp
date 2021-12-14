@@ -205,22 +205,14 @@ namespace ft
 			** If the container is empty, this function returns the same as vector::begin.
 			*/
 			reverse_iterator rend()
-			{
-				if (this->empty())
-					return (this->begin());
-				return (this->_first);
-			}
+			{return (this->_first);}
 
 			/*
 			** Returns a reverse iterator referring to the past-the-end element in the vector container.
 			** If the container is empty, this function returns the same as vector::begin.
 			*/
 			const_reverse_iterator rend() const
-			{
-				if (this->empty())
-					return (this->begin());
-				return (this->_first);
-			}
+			{return (this->_first);}
 
 			// Capacity
 

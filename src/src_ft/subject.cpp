@@ -10,13 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes.hpp"	
+#include "../includes.hpp"	
 
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
-
-using namespace ft;
 
 struct Buffer
 {
@@ -25,7 +23,7 @@ struct Buffer
 };
 
 template<typename T>
-class MutantStack : public stack<T>
+class MutantStack : public ft::stack<T>
 {
 	public:
 		MutantStack() {}
@@ -37,7 +35,7 @@ class MutantStack : public stack<T>
 		}
 		~MutantStack() {}
 
-		typedef typename stack<T>::container_type::iterator iterator;
+		typedef typename ft::stack<T>::container_type::iterator iterator;
 
 		iterator begin() { return this->c.begin(); }
 		iterator end() { return this->c.end(); }
@@ -56,12 +54,12 @@ void	subject_tests(int argc, char** argv)
 	const int seed = atoi(argv[1]);
 	srand(seed);
 
-	vector<std::string> vector_str;
-	vector<int> vector_int;
-	stack<int> stack_int;
-	vector<Buffer> vector_buffer;
-	stack<Buffer, std::deque<int> > stack_deq_buffer;
-	map<int, int> map_int;
+	ft::vector<std::string> vector_str;
+	ft::vector<int> vector_int;
+	ft::stack<int> stack_int;
+	ft::vector<Buffer> vector_buffer;
+	ft::stack<Buffer, std::deque<int> > stack_deq_buffer;
+	ft::map<int, int> map_int;
 
 	for (int i = 0; i < COUNT; i++)
 	{
@@ -73,7 +71,7 @@ void	subject_tests(int argc, char** argv)
 		const int idx = rand() % COUNT;
 		vector_buffer[idx].idx = 5;
 	}
-	vector<Buffer>().swap(vector_buffer);
+	ft::vector<Buffer>().swap(vector_buffer);
 
 	try
 	{
@@ -91,7 +89,7 @@ void	subject_tests(int argc, char** argv)
 	
 	for (int i = 0; i < COUNT; ++i)
 	{
-		map_int.insert(make_pair(rand(), rand()));
+		map_int.insert(ft::make_pair(rand(), rand()));
 	}
 
 	int sum = 0;
@@ -103,7 +101,7 @@ void	subject_tests(int argc, char** argv)
 	std::cout << "should be constant with the same seed: " << sum << std::endl;
 
 	{
-		map<int, int> copy = map_int;
+		ft::map<int, int> copy = map_int;
 	}
 	MutantStack<char> iterable_stack;
 	for (char letter = 'a'; letter <= 'z'; letter++)

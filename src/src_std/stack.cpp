@@ -10,13 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes.hpp"	
-
-using namespace ft;
+#include "../includes.hpp"	
 
 void	stack_empty(void)
 {
-	stack<int> mystack;
+	std::stack<int> mystack;
 	int sum (0);
 
 	for (int i=1;i<=10;i++)
@@ -33,7 +31,7 @@ void	stack_empty(void)
 
 void	stack_size()
 {
-	stack<int> myints;
+	std::stack<int> myints;
 	std::cout << "0. size: " << myints.size() << '\n';
 
 	for (int i=0; i<5; i++) myints.push(i);
@@ -45,7 +43,7 @@ void	stack_size()
 
 void	stack_top()
 {
-	stack<int> mystack;
+	std::stack<int> mystack;
 
 	mystack.push(10);
 	mystack.push(20);
@@ -57,7 +55,7 @@ void	stack_top()
 
 void	stack_push()
 {
-	stack<int> mystack;
+	std::stack<int> mystack;
 
 	for (int i=0; i<5; ++i)
 		mystack.push(i);
@@ -73,7 +71,7 @@ void	stack_push()
 
 void	stack_pop()
 {
-	stack<int> mystack;
+	std::stack<int> mystack;
 
 	for (int i=0; i<5; ++i)
 		mystack.push(i);

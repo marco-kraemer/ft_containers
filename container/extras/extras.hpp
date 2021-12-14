@@ -51,6 +51,22 @@ namespace ft
 		bool operator() (const T& x, const T& y) const {return x<y;}
 	};
 
+		const
+		class nullptr_t
+		{
+			public:
+				template<class T>
+				operator T*() const
+					{ return 0; }
+
+				template<class C, class T>
+				operator T C::*() const
+					{ return 0; }
+
+			private:
+				void operator&() const;    /* Can't take address of nullptr */
+
+		} nullptr = {}; 
 
 	template <class T1, class T2>
 	struct pair

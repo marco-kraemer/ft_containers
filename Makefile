@@ -10,33 +10,49 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
+NAME = ft_container
 
-SRC_PATH = ./src
+SRC_PATH = ./src/src_ft
+SRC_PATH_STD = ./src/src_std
 
-OBJ_PATH = ./obj
+FT_OBJ_PATH = ./obj_ft
+STD_OBJ_PATH = ./obj_std
 
-SRC = $(notdir $(wildcard ./src/*.cpp))
+SRC = $(notdir $(wildcard ./src/src_ft/*.cpp))
+SRC_STD = $(notdir $(wildcard ./src/src_std/*.cpp))
 
-OBJ = $(addprefix $(OBJ_PATH)/, $(SRC:.cpp=.o))
+OBJ = $(addprefix $(FT_OBJ_PATH)/, $(SRC:.cpp=.o))
+OBJ_STD = $(addprefix $(STD_OBJ_PATH)/, $(SRC_STD:.cpp=.o))
 
 CC = clang++
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -std=c++98
 
-all: $(NAME) $(OBJ)
+all: $(NAME) $(OBJ) $(OBJ_STD)
 
-$(NAME): $(OBJ)
-	@$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(OBJ) $(OBJ_STD)
+	@echo "Compiling FT tests..."
+	@$(CC) $(FLAGS) $(OBJ) -o ft_tests.out
+	@echo "Compiling STD tests..."
+	@$(CC) $(FLAGS) $(OBJ_STD) -o std_tests.out
 
-$(OBJ_PATH)/%.o:	$(SRC_PATH)/%.cpp
+$(FT_OBJ_PATH)/%.o:	$(SRC_PATH)/%.cpp
+	@$(CC) -g $(FLAGS) -c $< -o $@
+
+$(STD_OBJ_PATH)/%.o:	$(SRC_PATH_STD)/%.cpp
 	@$(CC) -g $(FLAGS) -c $< -o $@
 
 fclean: clean
-	@$(RM) $(NAME)
+	@$(RM) ft_tests.out
+	@echo "ft_tests.out removed"
+	@$(RM) std_tests.out
+	@echo "std_tests.out removed"
 
 clean:
-	@$(RM) $(OBJ_PATH)/*.o
+	@echo "Cleaning obj_ft folder..."
+	@$(RM) $(FT_OBJ_PATH)/*.o
+	@echo "Cleaning obj_std folder..."
+	@$(RM) $(STD_OBJ_PATH)/*.o
 
 re: fclean all
 

@@ -10,25 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes.hpp"	
-
-using namespace ft;
+#include "../includes.hpp"	
 
 void	vec_begin_end()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 	for (int i=1; i<=5; i++)
 		myvector.push_back(i);
 
 	std::cout << "myvector contains:";
-	for (vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
+	for (ft::vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 }
 
 void	vec_size()
 {
-	vector<int> myints;
+	ft::vector<int> myints;
 	std::cout << "0. size: " << myints.size() << '\n';
 
 	for (int i=0; i<10; i++) myints.push_back(i);
@@ -43,7 +41,7 @@ void	vec_size()
 
 void	vec_max_size()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 
 	for (int i=0; i<100; i++) 
 		myvector.push_back(i);
@@ -55,7 +53,7 @@ void	vec_max_size()
 
 void	vec_resize()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 
 	// set some initial content:
 	for (int i = 1; i < 10; i++)
@@ -73,7 +71,7 @@ void	vec_resize()
 
 void	vec_capacity()
 {
-	vector<char> myvector;
+	ft::vector<char> myvector;
 
 	for (int i = 0; i < 100; i++)
 		myvector.push_back('a');
@@ -85,7 +83,7 @@ void	vec_capacity()
 
 void	vec_empty()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 	int sum (0);
 
 	for (int i=1;i<=10;i++)
@@ -102,9 +100,9 @@ void	vec_empty()
 
 void	vec_reserve()
 {
-	vector<int>::size_type sz;
+	ft::vector<int>::size_type sz;
 
-	vector<int> foo;
+	ft::vector<int> foo;
 	sz = foo.capacity();
 	std::cout << "making foo grow:\n";
 	for (int i = 0; i < 100; ++i)
@@ -117,7 +115,7 @@ void	vec_reserve()
 		}
 	}
 
-	vector<int> bar;
+	ft::vector<int> bar;
 	sz = bar.capacity();
 	bar.reserve(100);
 	std::cout << "making bar grow:\n";
@@ -134,9 +132,9 @@ void	vec_reserve()
 
 void	vec_operator()
 {
-	vector<int> myvector (10);
+	ft::vector<int> myvector (10);
 	
-	vector<int>::size_type sz = myvector.size();
+	ft::vector<int>::size_type sz = myvector.size();
 
 	for (unsigned i=0; i<sz; i++) myvector[i]=i;
 
@@ -156,7 +154,7 @@ void	vec_operator()
 
 void	vec_at()
 {
-	vector<int> myvector (10);
+	ft::vector<int> myvector (10);
 
 	for (unsigned i = 0; i < myvector.size(); i++)
 		myvector.at(i) = i;
@@ -169,7 +167,7 @@ void	vec_at()
 
 void	vec_front()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 
 	myvector.push_back(78);
 	myvector.push_back(16);
@@ -181,7 +179,7 @@ void	vec_front()
 
 void	vec_back()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 
 	myvector.push_back(10);
 
@@ -198,13 +196,13 @@ void	vec_back()
 
 void	vec_assign()
 {
-	vector<int> first;
-	vector<int> second;
-	vector<int> third;
+	ft::vector<int> first;
+	ft::vector<int> second;
+	ft::vector<int> third;
 
 	first.assign ((size_t)7,100);             // 7 ints with a value of 100
 
-	vector<int>::iterator it;
+	ft::vector<int>::iterator it;
 	it=first.begin()+1;
 
 	second.assign (it,first.end()-1); // the 5 central values of first
@@ -219,7 +217,7 @@ void	vec_assign()
 
 void	vec_push_back()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 
 
 	for (int i = 0; i < 100; i++)
@@ -230,7 +228,7 @@ void	vec_push_back()
 
 void	vec_pop_back()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 	int sum (0);
 	myvector.push_back (100);
 	myvector.push_back (200);
@@ -247,8 +245,8 @@ void	vec_pop_back()
 
 void	vec_insert()
 {
-	vector<int> myvector (3, (size_t)100);
-	vector<int>::iterator it;
+	ft::vector<int> myvector (3, (size_t)100);
+	ft::vector<int>::iterator it;
 
 	it = myvector.begin();
 	it = myvector.insert ( it , 200 );
@@ -257,7 +255,7 @@ void	vec_insert()
 
 	it = myvector.begin();
 
-	vector<int> anothervector (2, (size_t)400);
+	ft::vector<int> anothervector (2, (size_t)400);
 	myvector.insert (it + 2, anothervector.begin(), anothervector.end());
 
 	int myarray [] = { 501,502,503 };
@@ -271,7 +269,7 @@ void	vec_insert()
 
 void	vec_erase()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 
 	for (int i=1; i<=10; i++) myvector.push_back(i);
 
@@ -287,8 +285,8 @@ void	vec_erase()
 
 void	vec_swap()
 {
-	vector<int> foo (3, (size_t)100);   // three ints with a value of 100
-	vector<int> bar (5, (size_t)200);   // five ints with a value of 200
+	ft::vector<int> foo (3, (size_t)100);   // three ints with a value of 100
+	ft::vector<int> bar (5, (size_t)200);   // five ints with a value of 200
 
 	foo.swap(bar);
 
@@ -305,7 +303,7 @@ void	vec_swap()
 
 void	vec_clear()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 	myvector.push_back (100);
 	myvector.push_back (200);
 	myvector.push_back (300);
@@ -327,7 +325,7 @@ void	vec_clear()
 
 void	vec_get_allocator()
 {
-	vector<int> myvector;
+	ft::vector<int> myvector;
 	int * p;
 	unsigned int i;
 
@@ -347,16 +345,16 @@ void	vec_get_allocator()
 
 void	vec_rbegin_rend()
 {
-	std::vector<int> myvector (5);  // 5 default-constructed ints
+	ft::vector<int> myvector (5);  // 5 default-constructed ints
 
-	std::vector<int>::reverse_iterator rit = myvector.rbegin();
+	ft::vector<int>::reverse_iterator rit = myvector.rbegin();
 
 	int i=0;
 	for (rit = myvector.rbegin(); rit!= myvector.rend(); ++rit)
 		*rit = ++i;
 
 	std::cout << "myvector contains:";
-	for (std::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+	for (ft::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 }

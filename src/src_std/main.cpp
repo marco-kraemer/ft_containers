@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/26 13:35:34 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/12/14 12:46:41 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 int	main(int argc, char **argv)
 {
+	std::cout << "**********************************************" << std::endl;
+	std::cout << "*                                            *" << std::endl;
+	std::cout << "*                                            *" << std::endl;
+	std::cout << "*           STD_CONTAINER TESTS              *" << std::endl;
+	std::cout << "*                                            *" << std::endl;
+	std::cout << "*                                            *" << std::endl;
+	std::cout << "**********************************************" << std::endl;
 	vector_tests();
 	map_tests();
 	stack_tests();

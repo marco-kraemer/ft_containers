@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 14:40:31 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/26 13:35:55 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/12/15 13:13:39 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,19 +349,57 @@ void	vec_rbegin_rend()
 
 	std::vector<int>::reverse_iterator rit = myvector.rbegin();
 
-	int i=0;
+	int i = 0;
 	for (rit = myvector.rbegin(); rit!= myvector.rend(); ++rit)
 		*rit = ++i;
 
 	std::cout << "myvector contains:";
-	for (std::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+	for (std::vector<int>::reverse_iterator it = myvector.rbegin(); it != myvector.rend(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
+}
+
+void	vec_assignation_test()
+{
+	using namespace ft;
+	
+	vector<int> foo;
+	for (int i = 0; i < 25; ++i) {
+			foo.push_back(i);
+	}
+	std::cout << "Main container:" << std::endl;
+	vector<int>::iterator it = foo.begin();
+	for (; it != foo.end(); it++) {
+		std::cout << *it << ", ";
+	}
+	std::cout << std::endl;
+	vector<int> bar;
+	bar = foo;
+	vector<int>::iterator it2 = bar.begin();
+	std::cout << "\n\nCopy container:" << std::endl;
+	for (; it2 != bar.end(); it2++) {
+		std::cout << *it2 << ", ";
+	}
+	std::cout << "\n\nChange copy container element 10 (Deep copy test) \n" << std::endl;
+	bar[10] = 99999;
+	std::cout << "Main container:" << std::endl;
+	for (it = foo.begin(); it != foo.end(); it++) {
+		std::cout << *it << ", ";
+	}
+	std::cout << "\n\nCopy container:" << std::endl;
+	for (it2 = bar.begin(); it2 != bar.end(); it2++) {
+		std::cout << *it2 << ", ";
+	}	
 }
 
 void	vector_tests()
 {
 	std::cout << "\n------------------------------ TESTING VECTOR CONTAINER ----------------------------------------------" << std::endl;
+	
+	std::cout << "\n\nVector test assignation \n" << std::endl;
+	vec_assignation_test();
+	std::cout << "\n\nVector test swap() \n" << std::endl;
+	vec_swap();
 	std::cout << "\n\nVector test begin() and end() \n" << std::endl;
 	vec_begin_end();
 	std::cout << "\n\nVector test rbegin() and rend() \n" << std::endl;
@@ -396,8 +434,6 @@ void	vector_tests()
 	vec_insert();
 	std::cout << "\n\nVector test erase() \n" << std::endl;
 	vec_erase();
-	std::cout << "\n\nVector test swap() \n" << std::endl;
-	vec_swap();
 	std::cout << "\n\nVector test clear() \n" << std::endl;
 	vec_clear();
 	std::cout << "\n\nVector test get_allocator() \n" << std::endl;

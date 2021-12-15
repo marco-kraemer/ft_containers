@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 09:50:03 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/26 14:49:18 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:46:08 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,17 +133,7 @@ namespace ft
 			*/
 			vector& operator= (const vector& x)
 			{
-				size_type	storage = this->size();
-				pointer		old_first = x._first;
-
-				this->_first = this->_alloc.allocate(storage);
-				this->_last = this->_first;
-				while (old_first != x._last)
-				{
-					this->_last = x._first;
-					this->_last++;
-					old_first++;
-				}
+				this->insert(this->begin(), x.begin(), x.end());
 				return (*this);
 			}
 

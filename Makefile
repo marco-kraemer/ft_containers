@@ -6,7 +6,7 @@
 #    By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 09:50:13 by maraurel          #+#    #+#              #
-#    Updated: 2021/12/14 12:43:31 by maraurel         ###   ########.fr        #
+#    Updated: 2021/12/15 12:17:43 by maraurel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ git:
 	git push
 
 run: re
-	@./a.out
+	@./ft_tests.out
 
 memory: re
 	@valgrind ./a.out

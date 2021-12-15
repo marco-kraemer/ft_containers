@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 08:52:25 by maraurel          #+#    #+#             */
-/*   Updated: 2021/12/14 12:46:41 by maraurel         ###   ########.fr       */
+/*   Updated: 2021/12/15 13:11:49 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ int	main(int argc, char **argv)
 	map_tests();
 	stack_tests();
 	subject_tests(argc, argv);
+	return 0;
 }

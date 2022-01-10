@@ -20,35 +20,35 @@ namespace ft
 	class map
 	{
 		public:
-			typedef Key 							key_type;
+			typedef Key 												key_type;
 
-			typedef T							mapped_type;
+			typedef T													mapped_type;
 
-			typedef pair<const key_type, mapped_type>			value_type;
+			typedef pair<const key_type, mapped_type>					value_type;
 
-			typedef Compare							key_compare;
+			typedef Compare												key_compare;
 
-			typedef Alloc							allocator_type;
+			typedef Alloc												allocator_type;
 
-			typedef T&							reference;
+			typedef T&													reference;
 
-			typedef const T&						const_reference;
+			typedef const T&											const_reference;
 
-			typedef T*							pointer;
+			typedef T*													pointer;
 
-			typedef const T*						const_pointer;
+			typedef const T*											const_pointer;
 
-			typedef MapIterator<key_type, mapped_type>			iterator;
+			typedef MapIterator<key_type, mapped_type>					iterator;
 
-			typedef const MapIterator<key_type, mapped_type>		const_iterator;
+			typedef const MapIterator<key_type, mapped_type>			const_iterator;
 
-			typedef ReverseMapIterator<key_type, mapped_type>		reverse_iterator;
+			typedef ReverseMapIterator<key_type, mapped_type>			reverse_iterator;
 
 			typedef const ReverseMapIterator<key_type, mapped_type>		const_reverse_iterator;
 		
-			typedef size_t							size_type;
+			typedef size_t												size_type;
 
-			typedef BNode<key_type, mapped_type>*				node;
+			typedef BNode<key_type, mapped_type>*						node;
 
 			class value_compare
 			{

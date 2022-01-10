@@ -52,7 +52,6 @@ namespace ft
 
 			class value_compare
 			{
-				friend class map;
 				protected:
 					Compare comp;
 					value_compare (Compare c) : comp(c) {};

@@ -285,9 +285,46 @@ void	map_allocator()
 	mymap.get_allocator().deallocate(p,5);
 }
 
+void	map_assignation_test()
+{
+	std::map<char,int> mymap;
+	mymap.insert ( std::pair<char,int>('a',100) );
+	mymap.insert ( std::pair<char,int>('b',200) );
+	mymap.insert ( std::pair<char,int>('c',300) );
+	mymap.insert ( std::pair<char,int>('d',400) );
+	
+	std::cout << "mymap contains:\n";
+	std::map<char,int>::iterator it = mymap.begin();
+	for (; it != mymap.end(); ++it) {
+		std::cout << it->first << " => " << it->second << ", ";
+	}
+	std::cout << std::endl;
+
+	std::cout << "mymap copy contains:\n";
+	std::map<char,int> mymap_copy = mymap;
+	std::map<char,int>::iterator it2 = mymap_copy.begin();
+	for (; it2 != mymap_copy.end(); ++it2) {
+		std::cout << it2->first << " => " << it2->second << ", ";
+	}
+
+	std::cout << "\n\nChange copy container element 'b' (Deep copy test) \n" << std::endl;
+	mymap_copy['b'] = 473;
+	std::cout << "mymap contains:\n";
+	for (it = mymap.begin(); it != mymap.end(); ++it) {
+		std::cout << it->first << " => " << it->second << ", ";
+	}
+	std::cout << "\nmymap copy contains:\n";
+	for (it2 = mymap_copy.begin(); it2 != mymap_copy.end(); ++it2) {
+		std::cout << it2->first << " => " << it2->second << ", ";
+	}
+	std::cout << std::endl;
+}
+
 void	map_tests(void)
 {
 	std::cout << "\n------------------------------ TESTING MAP CONTAINER -------------------------------------------------" << std::endl;
+	std::cout << "\n\nMap test assignation \n" << std::endl;
+	map_assignation_test();
 	std::cout << "\nMap test begin() and end() \n" << std::endl;
 	map_begin_end();
 	std::cout << "\nMap test rbegin() and rend() \n" << std::endl;

@@ -361,21 +361,19 @@ void	vec_rbegin_rend()
 
 void	vec_assignation_test()
 {
-	using namespace ft;
-	
-	vector<int> foo;
+	ft::vector<int> foo;
 	for (int i = 0; i < 25; ++i) {
 			foo.push_back(i);
 	}
 	std::cout << "Main container:" << std::endl;
-	vector<int>::iterator it = foo.begin();
+	ft::vector<int>::iterator it = foo.begin();
 	for (; it != foo.end(); it++) {
 		std::cout << *it << ", ";
 	}
 	std::cout << std::endl;
-	vector<int> bar;
+	ft::vector<int> bar;
 	bar = foo;
-	vector<int>::iterator it2 = bar.begin();
+	ft::vector<int>::iterator it2 = bar.begin();
 	std::cout << "\n\nCopy container:" << std::endl;
 	for (; it2 != bar.end(); it2++) {
 		std::cout << *it2 << ", ";
@@ -392,10 +390,28 @@ void	vec_assignation_test()
 	}	
 }
 
+void	vec_iterator_compare()
+{
+	ft::vector<int> foo;
+	for (int i = 0; i < 25; ++i) {
+			foo.push_back(i);
+	}
+	ft::vector<int>::iterator it1 = foo.begin();
+	ft::vector<int>::const_iterator it2 = foo.begin();
+	if (it1 == it2) {
+		std::cout << "iterator and const iterator are equal" << std::endl;
+	}
+	else {
+		std::cout << "Iterator and const iterator are different" << std::endl;
+	}
+}
+
 void	vector_tests()
 {
 	std::cout << "\n------------------------------ TESTING VECTOR CONTAINER ----------------------------------------------" << std::endl;
-	
+
+	std::cout << "\n\nCompare iterator and const iterator \n" << std::endl;
+	vec_iterator_compare();
 	std::cout << "\n\nVector test assignation \n" << std::endl;
 	vec_assignation_test();
 	std::cout << "\n\nVector test swap() \n" << std::endl;

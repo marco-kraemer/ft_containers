@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:12:00 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/26 17:16:20 by maraurel         ###   ########.fr       */
+/*   Updated: 2022/01/11 13:45:06 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #define MAP_HPP
 
 # include "extras/includes.hpp"
+
 namespace ft
 {
-	template <class Key, class T, class Compare=less<Key>, class Alloc = std::allocator<pair<const Key, T> > >
+	template <class Key, class T, class Compare=less<Key>, class Alloc = std::allocator<pair<const Key, T> >, class OrderedTree =  createNode<Key, T> >
 	class map
 	{
 		public:
@@ -50,6 +51,8 @@ namespace ft
 
 			typedef BNode<key_type, mapped_type>*						node;
 
+			typedef OrderedTree											search_tree;
+
 			class value_compare
 			{
 				protected:
@@ -67,20 +70,10 @@ namespace ft
 
 		private:
 			allocator_type	_allocator;
-			key_compare	_comp;
-			node		_root;
-			size_type	_length;
-
-			node create_node(key_type key, mapped_type value, node parent, bool end = false)
-			{
-				node New = new BNode<key_type, mapped_type>();
-				New->pair = ft::make_pair(key, value);
-				New->right = 0;
-				New->left = 0;
-				New->parent = parent;
-				New->end = end;
-				return (New);
-			};
+			key_compare		_comp;
+			node			_root;
+			size_type		_length;
+			search_tree		_search_tree;
 
 			void free_bst(node n)
 			{
@@ -97,7 +90,7 @@ namespace ft
 				{
 					if (!n->left)
 					{
-						n->left = create_node(key, value, n, end);
+						n->left = _search_tree.create_node(key, value, n, end);
 						return (n->left);
 					}
 					return (insert_node(n->left, key, value));
@@ -106,7 +99,7 @@ namespace ft
 				{
 					if (!n->left)
 					{
-						n->left = create_node(key, value, n, end);
+						n->left = _search_tree.create_node(key, value, n, end);
 						return (n->left);
 					}
 					else
@@ -116,7 +109,7 @@ namespace ft
 				{
 					if (!n->right)
 					{
-						n->right = create_node(key, value, n, end);
+						n->right = _search_tree.create_node(key, value, n, end);
 						return (n->right);
 					}
 					else
@@ -184,8 +177,8 @@ namespace ft
 
 			void create_bst(void)
 			{
-				_root = create_node(key_type(), mapped_type(), 0);
-				_root->right  = create_node(key_type(), mapped_type(), _root, true);
+				_root = _search_tree.create_node(key_type(), mapped_type(), 0);
+				_root->right  = _search_tree.create_node(key_type(), mapped_type(), _root, true);
 				_length = 0;
 			};
 

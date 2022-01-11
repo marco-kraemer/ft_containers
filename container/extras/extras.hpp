@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:37:20 by maraurel          #+#    #+#             */
-/*   Updated: 2021/10/26 17:21:36 by maraurel         ###   ########.fr       */
+/*   Updated: 2022/01/11 13:46:39 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,26 @@ namespace ft
 		BNode *right;
 		BNode *parent;
 		bool end;
+	};
+
+	template <class Key, class T>
+	class createNode
+	{
+		public:
+			typedef Key 												key_type;
+			typedef T													mapped_type;
+			typedef BNode<key_type, mapped_type>*						node;
+			
+			node create_node(key_type key, mapped_type value, node parent, bool end = false)
+			{
+				node New = new BNode<key_type, mapped_type>();
+				New->pair = ft::make_pair(key, value);
+				New->right = 0;
+				New->left = 0;
+				New->parent = parent;
+				New->end = end;
+				return (New);
+			};
 	};
 }
 

@@ -21,23 +21,23 @@ namespace ft
 	class vector
 	{	
 		public:
-			typedef T					value_type;
+			typedef T									value_type;
 		
-			typedef Alloc					allocator_type;
+			typedef Alloc								allocator_type;
 		
-			typedef T*					pointer;
+			typedef T*									pointer;
 		
-			typedef T&					reference;
+			typedef T&									reference;
 		
-			typedef const T&				const_reference;
+			typedef const T&							const_reference;
 		
 			typedef typename allocator_type::size_type	size_type;
 		
-			typedef VectorIterator<T>			iterator;
+			typedef VectorIterator<T>					iterator;
 		
-			typedef const VectorIterator<T>			const_iterator;
+			typedef const VectorIterator<T>				const_iterator;
 
-			typedef ReverseVectorIterator<T>		reverse_iterator;
+			typedef ReverseVectorIterator<T>			reverse_iterator;
 
 			typedef const ReverseVectorIterator<T>		const_reverse_iterator;
 

@@ -6,7 +6,7 @@
 /*   By: maraurel <maraurel@student.42sp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:37:20 by maraurel          #+#    #+#             */
-/*   Updated: 2022/01/11 13:46:39 by maraurel         ###   ########.fr       */
+/*   Updated: 2022/01/12 13:31:51 by maraurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,11 @@ namespace ft
 				return (New);
 			};
 	};
+
+	template<bool Cond, class T = void> struct enable_if {};
+	
+	template<class T> struct enable_if<true, T> { typedef T type; };
+	
 }
 
 #endif

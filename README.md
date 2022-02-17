@@ -16,3 +16,12 @@ The iterators system and binary search tree, necessary for the map, were impleme
 * Implemented using a Binary Search Tree algorithm
 
 ## How to use
+1. Clone repository
+```
+git@github.com:marco-kraemer/ft_containers.git
+```
+2. Compile and run tests
+```
+make run
+```
+* 2 outfiles will be generate. One testing ft_containers and one with the originals containers. They can be compared using *diff* command.
